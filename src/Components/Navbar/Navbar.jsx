@@ -1,4 +1,4 @@
-import React from "react";
+import "react";
 
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
@@ -54,6 +54,7 @@ const DropdownLinksPhone = [
 ];
 
 
+// eslint-disable-next-line react/prop-types
 const Navbar = ({ handleOrderPopup }) => {
   return (
     <div className="shadow-md bg-white dark:bg-slate-800 dark:text-white duration-200 relative z-40">

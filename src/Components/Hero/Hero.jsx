@@ -1,8 +1,13 @@
-import React from "react";
-import Image1 from "../../assets/hero/women.png";
-import Image2 from "../../assets/hero/shopping.png";
-import Image3 from "../../assets/hero/sale.png";
+import "react";
+import Image1 from "../../assets/hero/alien.jpg";
+import Image2 from "../../assets/hero/iphone.jpg";
+import Image3 from "../../assets/hero/gamer.jpg";
+import Image4 from "../../assets/hero/phone.jpg";
+import Image5 from "../../assets/hero/pc.jpg";
 import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const ImageList = [
   {
@@ -26,8 +31,23 @@ const ImageList = [
     description:
       "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
   },
+  {
+    id: 4,
+    img: Image4,
+    title: "30% off on all Women's Wear",
+    description:
+      "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
+  {
+    id: 5,
+    img: Image5,
+    title: "70% off on all Products Sale",
+    description:
+      "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+  },
 ];
 
+// eslint-disable-next-line react/prop-types
 const Hero = ({ handleOrderPopup }) => {
   var settings = {
     dots: false,
@@ -43,17 +63,17 @@ const Hero = ({ handleOrderPopup }) => {
   };
 
   return (
-    <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-gray-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200 ">
+    <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-blue-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200 ">
       {/* background pattern */}
       <div className="h-[700px] w-[700px] bg-primary/40 absolute -top-1/2 right-0 rounded-3xl rotate-45 -z[8]"></div>
       {/* hero section */}
       <div className="container pb-8 sm:pb-0">
         <Slider {...settings}>
           {ImageList.map((data) => (
-            <div>
+            <div key={data.id}>
               <div className="grid grid-cols-1 sm:grid-cols-2">
                 {/* text content section */}
-                <div className="flex flex-col justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
+                <div className="flex flex-col ml-12 justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
                   <h1
                     data-aos="zoom-out"
                     data-aos-duration="500"
