@@ -15,7 +15,7 @@ const DarkMode = () => {
       localStorage.setItem("theme", "dark");
     } else {
       element.classList.remove("dark");
-      localStorage.setItem("theme", "light");
+      localStorage.setItem("theme", "light"); 
     }
   }, [theme]);
 
