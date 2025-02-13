@@ -60,14 +60,14 @@ const DropdownLinksPhone = [
 const Navbar = ({ handleOrderPopup }) => {
   return (
   <>
-    <div className="flex h-8 bg-sky-100 items-center justify-between px-[4%] gap-8">
+    <div className="flex h-8 bg-blue-100 items-center justify-between px-[4%] gap-8">
       <p> Tel: +212 777383268</p>
       <ul className="flex items-center gap-2">
-        <li className="flex items-center justify-center gap-1">
-          <span><FaRegHeart /></span>
-          <span> Favories</span>
+        <li className="flex items-center justify-center space-x-2">
+        <span  >Mes Favories</span>
+          <span className="text-xl"><FaRegHeart /></span>
         </li>
-        <li>
+        <li className="ml-12">
           <span>Login</span>
         </li>
       </ul>

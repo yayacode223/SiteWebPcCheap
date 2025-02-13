@@ -1,47 +1,40 @@
 import React from "react";
-import Img1 from "../../assets/shirt/shirt.png";
-import Img2 from "../../assets/shirt/shirt2.png";
-import Img3 from "../../assets/shirt/shirt3.png";
-import { FaStar } from "react-icons/fa";
+import Img1 from "../../assets/ImagesPC/2.jpg";
+import Img2 from "../../assets/ImagesPC/3.jpg";
+import Img3 from "../../assets/ImagesPC/1.jpg";
+
 
 const ProductsData = [
   {
     id: 1,
     img: Img1,
     title: "Casual Wear",
-    description:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    description: "Nos PC vous offrent une expérience utilisateur fluide, fiable et sécurisée."
   },
   {
     id: 2,
     img: Img2,
     title: "Printed shirt",
     description:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
+              "Nos PC vous offrent une expérience utilisateur fluide, fiable et sécurisée."  },
   {
     id: 3,
     img: Img3,
     title: "Women shirt",
     description:
-      "lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
+        "Nos PC vous offrent une expérience utilisateur fluide, fiable et sécurisée."  },
 ];
 const TopProducts = ({ handleOrderPopup }) => {
   return (
     <div>
       <div className="container">
         {/* Header section */}
-        <div className="text-left mb-24">
-          <p data-aos="fade-up" className="text-sm text-primary">
-            Top Rated Products for you
-          </p>
-          <h1 data-aos="fade-up" className="text-3xl font-bold">
-            Best Products
+        <div className="text-left mb-40">
+          <h1 data-aos="fade-up" className="text-3xl font-bold text-center">
+            Les meilleurs Produits
           </h1>
-          <p data-aos="fade-up" className="text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit
-            asperiores modi Sit asperiores modi
+          <p data-aos="fade-up" className="text-xs text-center text-gray-400">
+          Puissance et élégance réunies : les PC HP sont conçus pour offrir des performances exceptionnelles, une fiabilité à toute épreuve et un design moderne.
           </p>
         </div>
         {/* Body section */}
@@ -61,13 +54,6 @@ const TopProducts = ({ handleOrderPopup }) => {
               </div>
               {/* details section */}
               <div className="p-4 text-center">
-                {/* star rating */}
-                <div className="w-full flex items-center justify-center gap-1">
-                  <FaStar className="text-yellow-500" />
-                  <FaStar className="text-yellow-500" />
-                  <FaStar className="text-yellow-500" />
-                  <FaStar className="text-yellow-500" />
-                </div>
                 <h1 className="text-xl font-bold">{data.title}</h1>
                 <p className="text-gray-500 group-hover:text-white duration-300 text-sm line-clamp-2">
                   {data.description}

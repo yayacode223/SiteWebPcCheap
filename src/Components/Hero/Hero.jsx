@@ -1,9 +1,18 @@
 import "react";
-import Image1 from "../../assets/hero/alien.jpg";
-import Image2 from "../../assets/hero/iphone.jpg";
-import Image3 from "../../assets/hero/gamer.jpg";
-import Image4 from "../../assets/hero/phone.jpg";
-import Image5 from "../../assets/hero/pc.jpg";
+import Image1 from '../../assets/ImagesPC/1.jpg';
+import Image3 from '../../assets/ImagesPC/2.jpg';
+import Image4 from '../../assets/ImagesPC/3.jpg';
+import Image2 from '../../assets/ImagesPC/4.jpg'; 
+import Image5 from '../../assets/ImagesPC/5.jpg'; 
+import Image6 from '../../assets/ImagesPC/6.jpg'; 
+import Image7 from '../../assets/ImagesPhone/1.jpg'; 
+import Image8 from '../../assets/ImagesPhone/2.jpg'; 
+import Image9 from '../../assets/ImagesPhone/3.jpg'; 
+import Image10 from '../../assets/ImagesPhone/4.jpg'; 
+import Image11 from '../../assets/ImagesPhone/5.jpg'; 
+import Image12 from '../../assets/ImagesPhone/6.jpg'; 
+import Image13 from '../../assets/ImagesPhone/7.jpg'; 
+import Image14 from '../../assets/ImagesPhone/8.jpg'; 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -13,37 +22,97 @@ const ImageList = [
   {
     id: 1,
     img: Image1,
-    title: "Upto 50% off on all Men's Wear",
+    title: "Les meuilleur prix",
     description:
-      "lorem His Life will forever be Changed dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Avec leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
   },
+
   {
     id: 2,
     img: Image2,
-    title: "30% off on all Women's Wear",
+    title: "-30% Sur les marques Dell",
     description:
-      "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
+    "Avec  leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  }, 
   {
     id: 3,
     img: Image3,
-    title: "70% off on all Products Sale",
+    title: "Les Nouvelles Generations",
     description:
-      "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-  },
+        "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."  },
   {
     id: 4,
     img: Image4,
-    title: "30% off on all Women's Wear",
+    title: "-30%  sur les pc gamers ",
     description:
-      "Who's there lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
   },
   {
     id: 5,
     img: Image5,
-    title: "70% off on all Products Sale",
+    title: "Bientot la promotion commence",
     description:
-      "consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 6,
+    img: Image6,
+    title: "Bientot la promotion commence",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 7,
+    img: Image7,
+    title: "Bientot la promotion commence",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },{
+    id: 8,
+    img: Image8,
+    title: "Bientot la promotion commence",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },{
+    id: 9,
+    img: Image9,
+    title: "Bientot la promotion commence",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },{
+    id: 10,
+    img: Image10,
+    title: "Bientot la promotion commence",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 11,
+    img: Image11,
+    title: "Les Nouvelles tendances",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 12,
+    img: Image12,
+    title: "Les Nouvelles tendances",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 13,
+    img: Image13,
+    title: "Les Nouvelles tendances",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
+  },
+  {
+    id: 14,
+    img: Image14,
+    title: "Les Nouvelles tendances",
+    description:
+    "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."
   },
 ];
 
@@ -56,7 +125,7 @@ const Hero = ({ handleOrderPopup }) => {
     speed: 800,
     slidesToScroll: 1,
     autoplay: true,
-    autoplaySpeed: 4000,
+    autoplaySpeed: 2000,
     cssEase: "ease-in-out",
     pauseOnHover: false,
     pauseOnFocus: true,
