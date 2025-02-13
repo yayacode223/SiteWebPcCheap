@@ -1,9 +1,11 @@
 import React from "react";
+import { Routes, Route } from "react-router";
 import Navbar from "./Components/Navbar/Navbar";
-import Hero from "./Components/Hero/Hero";
 import AOS from "aos";
 import "aos/dist/aos.css";
-import TopProducts from './Components/TopProducts/TopProducts';
+import Home from "./pages/Home";
+import DashBoard from "./admin/pages/DashBoard"
+import Header from "./admin/components/Header"
 const App = () => {
   const [orderPopup, setOrderPopup] = React.useState(false);
 
@@ -21,11 +23,23 @@ const App = () => {
   }, []);
 
   return (
-    <div className="bg-white dark:bg-gray-900 dark:text-white duration-200">
-      <Navbar handleOrderPopup={handleOrderPopup} />
-      <Hero handleOrderPopup={handleOrderPopup} />
-      <TopProducts />
-    </div>
+    <>
+
+    <Routes>
+        <Route path="/" element={<Navbar handleOrderPopup={handleOrderPopup} />}>
+          <Route index path="/" element={<Home handleOrderPopup={handleOrderPopup} />} />
+        </Route>
+        <Route path='/admin' element={<Header/>}>
+          <Route index path='dashboard' element={<DashBoard/>} />
+        </Route>
+    </Routes>
+    
+
+      {/* <div className="bg-white dark:bg-gray-900 dark:text-white w-full h-full duration-200" >
+        
+        
+      </div> */}
+    </>
   )
 }
 

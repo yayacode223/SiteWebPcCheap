@@ -6,16 +6,17 @@ import { FaCaretDown } from "react-icons/fa";
 import DarkMode from "./DarkMode";
 import { FiShoppingBag } from "react-icons/fi";
 import { FaRegHeart } from "react-icons/fa";
+import { Outlet } from "react-router";
 
 
 const Menu = [
   {
-    id: 3,
+    id: 1,
     name: "A propos",
     link: "/#",
   },
   {
-    id: 3,
+    id: 2,
     name: "Contact",
     link: "/#",
   },
@@ -178,6 +179,9 @@ const Navbar = ({ handleOrderPopup }) => {
         </ul>
       </div>
     </div>
+
+    <Outlet/>
+
   </>
   );
 };
