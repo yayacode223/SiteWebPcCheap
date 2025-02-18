@@ -14,6 +14,7 @@ const Menu = [
     id: 1,
     name: "A propos",
     link: "/Apropos",
+
   },
   {
     id: 2,
@@ -25,36 +26,36 @@ const DropdownLinksOrdi = [
   {
     id: 1,
     name: "HP",
-    link: "/#",
+    link: "/ordinateurs",
   },
   {
     id: 2,
     name: "Lenovo",
-    link: "/#",
+    link: "/ordinateurs",
   },
   {
     id: 3,
     name: "Dell",
-    link: "/#",
+    link: "/ordinateurs",
   },
 ];
 const DropdownLinksPhone = [
   {
     id: 1,
     name: "Iphone",
-    link: "/#",
+    link: "/telephones",
   },
 
   {
     id: 2,
     name: "Samsung",
-    link: "/#",
+    link: "/telephones",
   },
   
   {
     id: 3,
     name: "Infinix",
-    link: "/#",
+    link: "/telephones",
   },
 ];
 
@@ -85,10 +86,10 @@ const Navbar = ({ handleOrderPopup }) => {
       <div className="bg-primary/40 py-2">
         <div className="container flex justify-between items-center">
           <div>
-            <a href="#" className="font-bold text-xl items-center flex gap-1">
+            <Link to={'/'} className="font-bold text-xl items-center flex gap-1">
               <FiShoppingBag size="30" />
               PCCHEAP
-            </a>
+            </Link>
           </div>
 
           {/* Bar de recherche */}
@@ -127,7 +128,11 @@ const Navbar = ({ handleOrderPopup }) => {
       
       <div data-aos="zoom-in" className="flex justify-center pb-[.5%]">
         <ul className="sm:flex hidden items-center gap-4">
-          <li><Link to="/">Home</Link></li>
+          <li>
+            <Link to={'/'}>
+              Home
+            </Link>
+          </li>
           {/* Simple Dropdown and Links */}
           <li className="group relative cursor-pointer">
             <a href="#" className="flex items-center gap-[2px] py-2">
@@ -162,12 +167,12 @@ const Navbar = ({ handleOrderPopup }) => {
               <ul>
                 {DropdownLinksPhone.map((data) => (
                   <li key={data.id}>
-                    <a
-                      href={data.link}
+                    <Link
+                      to={data.link}
                       className="inline-block w-full rounded-md p-2 hover:bg-primary/20 "
                     >
                       {data.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -177,6 +182,7 @@ const Navbar = ({ handleOrderPopup }) => {
             <li key={data.id}>
               <Link
                 to={data.link}
+                href={data.link}
                 className="inline-block px-4 hover:text-primary duration-200"
               >
                 {data.name}

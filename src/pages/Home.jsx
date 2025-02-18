@@ -5,6 +5,8 @@ import Footer from '../Components/Footer/Footer'
 import Features from '../Components/Features/Features';
 
 
+
+
 export default function Home({handleOrderPopup}) {
   return (
     <div className='w-full h-full'>

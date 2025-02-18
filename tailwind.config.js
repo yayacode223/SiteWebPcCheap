@@ -8,7 +8,10 @@ export default {
     extend: {
       gridTemplateColumns: {
         'dashboard': 'repeat(auto-fit, minmax(200px, auto))',
-      }
+      },
+      fontFamily: {
+        sans: ['Poppins', 'sans-serif'],
+      },
     },
   },
   plugins: [],
