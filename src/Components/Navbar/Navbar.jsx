@@ -1,5 +1,5 @@
-import "react";
-
+import React from "react";
+import { Link } from 'react-router-dom';
 import { IoMdSearch } from "react-icons/io";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaCaretDown } from "react-icons/fa";
@@ -13,12 +13,12 @@ const Menu = [
   {
     id: 1,
     name: "A propos",
-    link: "/#",
+    link: "/Apropos",
   },
   {
     id: 2,
     name: "Contact",
-    link: "/#",
+    link: "/Contact",
   },
 ];
 const DropdownLinksOrdi = [
@@ -44,11 +44,13 @@ const DropdownLinksPhone = [
     name: "Iphone",
     link: "/#",
   },
+
   {
     id: 2,
     name: "Samsung",
     link: "/#",
   },
+  
   {
     id: 3,
     name: "Infinix",
@@ -61,6 +63,7 @@ const DropdownLinksPhone = [
 const Navbar = ({ handleOrderPopup }) => {
   return (
   <>
+  {/* Top header avant NavBar Principale */}
     <div className="flex h-8 bg-blue-100 items-center justify-between px-[4%] gap-8">
       <p> Tel: +212 777383268</p>
       <ul className="flex items-center gap-2">
@@ -73,9 +76,12 @@ const Navbar = ({ handleOrderPopup }) => {
         </li>
       </ul>
     </div>
+
+    {/* Container de la NavBar Principale*/}
     <div className="shadow-md bg-white dark:bg-slate-800 dark:text-white duration-200 relative z-40 px-[4%] pt-[2%]">
      
-      {/* upper Navbar */}
+      {/* Navbar Principale */}
+
       <div className="bg-primary/40 py-2">
         <div className="container flex justify-between items-center">
           <div>
@@ -85,7 +91,8 @@ const Navbar = ({ handleOrderPopup }) => {
             </a>
           </div>
 
-          {/* search bar */}
+          {/* Bar de recherche */}
+          
           <div className="flex justify-between items-center gap-4">
             <div className="relative group hidden sm:block">
               <input
@@ -115,10 +122,12 @@ const Navbar = ({ handleOrderPopup }) => {
           </div>
         </div>
       </div>
+
       {/* lower Navbar */}
+      
       <div data-aos="zoom-in" className="flex justify-center pb-[.5%]">
         <ul className="sm:flex hidden items-center gap-4">
-          <li>Home</li>
+          <li><Link to="/">Home</Link></li>
           {/* Simple Dropdown and Links */}
           <li className="group relative cursor-pointer">
             <a href="#" className="flex items-center gap-[2px] py-2">
@@ -131,12 +140,12 @@ const Navbar = ({ handleOrderPopup }) => {
               <ul>
                 {DropdownLinksOrdi.map((data) => (
                   <li key={data.id}>
-                    <a
-                      href={data.link}
+                    <Link
+                     to={data.link}
                       className="inline-block w-full rounded-md p-2 hover:bg-primary/20 "
                     >
                       {data.name}
-                    </a>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -166,12 +175,12 @@ const Navbar = ({ handleOrderPopup }) => {
           </li>
           {Menu.map((data) => (
             <li key={data.id}>
-              <a
-                href={data.link}
+              <Link
+                to={data.link}
                 className="inline-block px-4 hover:text-primary duration-200"
               >
                 {data.name}
-              </a>
+              </Link>
             </li>
           ))}
           

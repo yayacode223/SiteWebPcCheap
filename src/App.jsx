@@ -6,10 +6,9 @@ import "aos/dist/aos.css";
 import Home from "./pages/Home";
 import DashBoard from "./admin/pages/DashBoard"
 import Header from "./admin/components/Header"
-import Products from './Components/Produits/Produits';
-import Testimonials from "./Components/Testimonials/Testimonials";
+import Apropos from "./pages/Apropos";
 import Footer from "./Components/Footer/Footer"; 
-import Apropos from "./Components/Apropos/Apropos";
+
 
 
 const App = () => {
@@ -21,7 +20,7 @@ const App = () => {
   React.useEffect(() => {
     AOS.init({
       offset: 100,
-      duration: 800,
+      duration: 800, 
       easing: "ease-in-sine",
       delay: 100,
     });
@@ -33,9 +32,12 @@ const App = () => {
 
     <Routes>
         <Route path="/" element={<Navbar handleOrderPopup={handleOrderPopup} />}>
-          <Route index path="/" element={<Home handleOrderPopup={handleOrderPopup} />} />
+          <Route index path="/" element={<Home handleOrderPopup={handleOrderPopup} />} />y
+          <Route  path="Apropos" element={<Apropos />} />
         </Route>
-        
+
+      
+
         <Route path='/admin' element={<Header/>}>
           <Route index path='dashboard' element={<DashBoard/>} />
         </Route>

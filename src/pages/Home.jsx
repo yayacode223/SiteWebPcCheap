@@ -1,18 +1,17 @@
 import React from 'react'
 import Hero from '../Components/Hero/Hero'
-import Products from '../Components/Produits/Produits'
+import Produits from '../Components/Produits/Produits'
 import Footer from '../Components/Footer/Footer'
-import Apropos from '../Components/Apropos/Apropos'
-import Testimonials from '../Components/Testimonials/Testimonials'
+import Features from '../Components/Features/Features';
+
 
 export default function Home({handleOrderPopup}) {
   return (
     <div className='w-full h-full'>
         <Hero handleOrderPopup={handleOrderPopup} />
-        <Products />
-        <Testimonials />
+        <Produits />
+        <Features />
         <Footer />
-        <Apropos />
     </div>
   )
 }

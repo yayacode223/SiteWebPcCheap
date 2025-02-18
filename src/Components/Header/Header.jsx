@@ -12,13 +12,14 @@ export default function NavBar() {
                     <img src={logo} class="h-8" alt="Flowbite Logo" />
                     <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">PCCHEAP</span>
                 </a>
-                
+
                 <div class="flex items-center space-x-6 rtl:space-x-reverse">
                     <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">+212 7773832</a>
                     <a href="#" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
                 </div>
             </div>
         </nav>
+        
         <nav class="bg-gray-50 dark:bg-gray-700">
             <div class="max-w-screen-xl px-4 py-3 mx-auto">
                 <div class="flex items-center">
@@ -39,7 +40,6 @@ export default function NavBar() {
                 </div>
             </div>
         </nav>
-
 
     </div>
   )

@@ -1,4 +1,5 @@
-import "react";
+import React from 'react';
+import { useRef } from 'react';
 import Image1 from '../../assets/ImagesPC/1.jpg';
 import Image3 from '../../assets/ImagesPC/2.jpg';
 import Image4 from '../../assets/ImagesPC/3.jpg';
@@ -16,6 +17,8 @@ import Image14 from '../../assets/ImagesPhone/8.jpg';
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { GrPrevious } from "react-icons/gr";
+import { GrNext } from "react-icons/gr";
 
 
 const ImageList = [
@@ -116,11 +119,14 @@ const ImageList = [
   },
 ];
 
+
 // eslint-disable-next-line react/prop-types
-const Hero = ({ handleOrderPopup }) => {
-  var settings = {
+export default function Hero({ handleOrderPopup }) {
+  const sliderRef = useRef(null); // Référence pour le slider
+
+  const settings = {
     dots: false,
-    arrows: false,
+    arrows: false, // On désactive les flèches natives
     infinite: true,
     speed: 800,
     slidesToScroll: 1,
@@ -132,17 +138,23 @@ const Hero = ({ handleOrderPopup }) => {
   };
 
   return (
-    <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-blue-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200 ">
-      {/* background pattern */}
-      <div className="h-[700px] w-[700px] bg-primary/40 absolute -top-1/2 right-0 rounded-3xl rotate-45 -z[8]"></div>
-      {/* hero section */}
-      <div className="container pb-8 sm:pb-0">
-        <Slider {...settings}>
+
+    <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-blue-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200">
+
+      {/* Hero section */}
+      <div className="container pb-8 sm:pb-0 relative">
+
+        {/* Slider */}
+
+        <Slider ref={sliderRef} {...settings}>
+
           {ImageList.map((data) => (
+
             <div key={data.id}>
               <div className="grid grid-cols-1 sm:grid-cols-2">
-                {/* text content section */}
+                {/* Text content section */}
                 <div className="flex flex-col ml-12 justify-center gap-4 pt-12 sm:pt-0 text-center sm:text-left order-2 sm:order-1 relative z-10">
+                  
                   <h1
                     data-aos="zoom-out"
                     data-aos-duration="500"
@@ -158,6 +170,7 @@ const Hero = ({ handleOrderPopup }) => {
                     className="text-sm"
                   >
                     {data.description}
+                    
                   </p>
                   <div
                     data-aos="fade-up"
@@ -166,16 +179,16 @@ const Hero = ({ handleOrderPopup }) => {
                   >
                     <button
                       onClick={handleOrderPopup}
-                      className="bg-gradient-to-r from-primary to-secondary hover:scale-105 duration-200 text-white py-2 px-4 rounded-full"
+                      className="bg-blue-600 hover:scale-110 duration-200  py-2 px-4 rounded-full"
                     >
                       Order Now
                     </button>
                   </div>
                 </div>
-                {/* image section */}
+                {/* Image section */}
                 <div className="order-1 sm:order-2">
                   <div
-                    data-aos="zoom-in"
+                    data-aos="zoom-out"
                     data-aos-once="true"
                     className="relative z-10"
                   >
@@ -190,9 +203,32 @@ const Hero = ({ handleOrderPopup }) => {
             </div>
           ))}
         </Slider>
+
+              {/* Boutons Previous et Next */}
+
+        <div className="absolute top-1/2 -translate-y-1/2 flex justify-between w-full px-4">
+          <button
+            onClick={() => sliderRef.current.slickPrev()}
+            className="bg-gradient-to-r from-primary to-secondary hover:scale-125 duration-200 text-black text-3xl font-extrabold p-0 rounded-full shadow-lg"
+          >
+            <GrPrevious />
+          </button>
+          <button
+            onClick={() => sliderRef.current.slickNext()}
+            className="bg-gradient-to-r from-primary to-secondary hover:scale-125 duration-200 text-black text-3xl p-0 rounded-full shadow-lg"
+          >
+            <GrNext />
+          </button>
+        </div>
       </div>
     </div>
   );
-};
+}
 
-export default Hero;
+
+
+
+
+
+
+

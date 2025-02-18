@@ -1,196 +1,260 @@
-import React from "react";
-import Img1 from "../../assets/ImagesPC/5.jpg";
-import Img2 from "../../assets/ImagesPC/6.jpg";
-import Img3 from "../../assets/ImagesPC/7.jpg";
-import Img4 from "../../assets/ImagesPC/8.jpg";
-import Img5 from "../../assets/ImagesPC/2.jpg";
-import Img6 from "../../assets/ImagesPhone/6.jpg";
-import Img7 from "../../assets/ImagesPhone/4.jpg";
-import Img8 from "../../assets/ImagesPhone/9.jpg";
-import Img9 from "../../assets/ImagesPhone/5.jpg";
-import Img10 from "../../assets/ImagesPhone/2.jpg";
-import { FaStar } from "react-icons/fa6";
+import React from 'react';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css"; // Styles de base de react-slick
+import "slick-carousel/slick/slick-theme.css"; // Thème par défaut de react-slick
+import Img from '../../assets/ImagesPC/hp10.png'; 
+import Img1 from '../../assets/ImagesPhone/6.jpg';
 
-const ProductsData = [
+
+const InfoProduitsPc = [
   {
     id: 1,
-    img: Img1,
-    title: "Women Ethnic",
-    rating: 5.0,
-    color: "white",
-    aosDelay: "0",
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
   },
   {
     id: 2,
-    img: Img2,
-    title: "Women western",
-    rating: 4.5,
-    color: "Red",
-    aosDelay: "200",
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
   },
   {
     id: 3,
-    img: Img3,
-    title: "Goggles",
-    rating: 4.7,
-    color: "brown",
-    aosDelay: "400",
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+   prixPromotion: "HP",
+    prix: "Promotion"
   },
   {
     id: 4,
-    img: Img4,
-    title: "Printed T-Shirt",
-    rating: 4.4,
-    color: "Yellow",
-    aosDelay: "600",
-  },
-  {
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
+  }, {
     id: 5,
-    img: Img5,
-    title: "Fashin T-Shirt",
-    rating: 4.5,
-    color: "Pink",
-    aosDelay: "800",
-  },
-];
-
-const ProductsData1 = [
-  {
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
+  }, {
     id: 6,
-    img: Img6,
-    title: "Women Ethnic",
-    rating: 5.0,
-    color: "white",
-    aosDelay: "0",
-  },
-  {
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
+  }, {
     id: 7,
-    img: Img7,
-    title: "Women western",
-    rating: 4.5,
-    color: "Red",
-    aosDelay: "200",
-  },
-  {
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+   prixPromotion: "HP",
+    prix: "Promotion"
+  }, {
     id: 8,
-    img: Img8,
-    title: "Goggles",
-    rating: 4.7,
-    color: "brown",
-    aosDelay: "400",
-  },
-  {
-    id: 9,
-    img: Img9,
-    title: "Printed T-Shirt",
-    rating: 4.4,
-    color: "Yellow",
-    aosDelay: "600",
-  },
-  {
-    id: 10,
-    img: Img10,
-    title: "Fashin T-Shirt",
-    rating: 4.5,
-    color: "Pink",
-    aosDelay: "800",
-  },
+    img : Img,
+    reduction: "-50%",
+    nom: "13-eme Generation",
+    auteur: "16 GB",
+    prixPromotion: "HP",
+    prix: "Promotion"
+  }
 ];
 
-const Products = () => {
+
+const InfoProduitsPhone = [
+  {
+    id: 1,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  },
+  {
+    id: 2,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  },
+  {
+    id: 3,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  },
+  {
+    id: 4,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prix: "Promotion"
+  }, {
+    id: 5,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  }, {
+    id: 6,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  }, {
+    id: 7,
+    img : Img1,
+    reduction: "-50%",
+    nom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  }, {
+    id: 8,
+    img : Img1,
+    reduction: "-50%",
+    nnom: "16 prox max",
+    auteur: "16pixel",
+    prixPromotion: "Iphone",
+    prix: "Promotion"
+  }
+];
+
+const settings = {
+  dots: true, // Affiche les points de navigation
+  infinite: true, // Permet de faire défiler en boucle
+  speed: 500, // Vitesse de l'animation
+  slidesToShow: 4, // Affiche 4 produits à la fois
+  slidesToScroll: 1, // Fait défiler 4 produits à chaque clic
+  arrows: true, // Affiche les flèches de navigation (Next/Prev)
+  responsive: [
+    {
+      breakpoint: 1024, // Pour les écrans de taille moyenne
+      settings: {
+        slidesToShow: 3,
+        slidesToScroll: 3,
+      }
+    },
+    {
+      breakpoint: 768, // Pour les écrans de petite taille
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      }
+    },
+    {
+      breakpoint: 480, // Pour les très petits écrans
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      }
+    }
+  ]
+};
+
+export default function Produits() {
   return (
-    <div className="mt-14 mb-12">
-      <div className="container">
-        {/* Header section */}
-        <div className="text-center mb-10 max-w-[600px] mx-auto">
-          <p data-aos="fade-up" className="text-sm text-primary">
-            Top Selling Products for you
-          </p>
-          <h1 data-aos="fade-up" className="text-3xl font-bold">
-            Products
-          </h1>
-          <p data-aos="fade-up" className="text-xs text-gray-400">
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sit
-            asperiores modi Sit asperiores modi
-          </p>
-        </div>
-
+    <div className="p-4">
+      <div className="mt-14 mb-12">
         {/* Affichage Ordinateur */}
+        <div className="bg-white py-6 sm:py-8 lg:py-12">
+          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div className="mb-10 md:mb-16">
+              <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Ordinateurs Portables</h2>
+            </div>
 
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-5">
-            {/* card section */}
-            {ProductsData.map((data) => (
-              <div
-                data-aos="fade-up"
-                data-aos-delay={data.aosDelay}
-                key={data.id}
-                className="flex-col"
-              >
-                    <img
-                    src={data.img}
-                    alt=""
-                    className="flex-1 object-cover rounded-md"
-                    />
-                    <div className="flex-1">
-                        <h3 className="font-semibold">{data.title}</h3>
-                        <p className="text-sm text-gray-600">{data.color}</p>
-                        <div className="flex items-center gap-1">
-                            <FaStar className="text-yellow-400" />
-                            <span>{data.rating}</span>
-                        </div>
+            {/* Slider */}
+            <Slider {...settings}>
+              {InfoProduitsPc.map((item) => (
+                <div key={item.id} className="px-2"> {/* Ajoute un espace entre les produits */}
+                  <a href="#" className="group relative block h-96 overflow-hidden rounded-t-lg bg-gray-100">
+                    <img src={item.img} loading="lazy" alt="Photo by Austin Wade" className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-125" />
+                    <span className="absolute left-0 top-3 rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white">{item.reduction}</span>
+                  </a>
+
+                  <div className="flex items-start justify-between gap-2 rounded-b-lg bg-gray-100 p-4">
+                    <div className="flex flex-col">
+                      <a href="#" className="font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-lg">{item.nom}</a>
+                      <span className="text-sm text-gray-500 lg:text-base">{item.auteur}</span>
                     </div>
-              </div>
-            ))}
-          </div>
-          {/* view all button */}
-          <div className="flex justify-center">
-            <button className="text-center mt-10 cursor-pointer bg-blue-300 text-white py-1 px-5 rounded-md">
-              View All Button
-            </button>
+
+                    <div className="flex flex-col items-end">
+                      <span className="font-bold text-gray-600 lg:text-lg">{item.prixPromotion}</span>
+                      <span className="text-sm text-red-500 font-bold">{item.prix}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
           </div>
         </div>
+      </div>
 
-         {/* Affichage Telephone */}
 
-        <div>
-          <div className="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 place-items-center gap-5">
-            {/* card section */}
-            {ProductsData1.map((data) => (
-              <div
-                data-aos="fade-up"
-                data-aos-delay={data.aosDelay}
-                key={data.id}
-                className="flex-col"
-              >
-                    <img
-                    src={data.img}
-                    alt=""
-                    className="flex-1 object-cover rounded-md"
-                    />
-                    <div className="flex-1">
-                        <h3 className="font-semibold">{data.title}</h3>
-                        <p className="text-sm text-gray-600">{data.color}</p>
-                        <div className="flex items-center gap-1">
-                            <FaStar className="text-yellow-400" />
-                            <span>{data.rating}</span>
-                        </div>
+      <div className="mt-14 mb-12">
+        {/* Affichage Telephone */}
+        <div className="bg-white py-6 sm:py-8 lg:py-12">
+          <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
+            <div className="mb-10 md:mb-16">
+              <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Telephones Portables</h2>
+            </div>
+
+            {/* Slider */}
+            <Slider {...settings}>
+              {InfoProduitsPhone.map((item) => (
+                <div key={item.id} className="px-8"> {/* Ajoute un espace entre les produits */}
+                  <a href="#" className="group relative block h-96 overflow-hidden rounded-t-lg bg-gray-100">
+                    <img src={item.img} loading="lazy" alt="Photo by Austin Wade" className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-125" />
+                    <span className="absolute left-0 top-3 rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white">{item.reduction}</span>
+                  </a>
+
+                  <div className="flex items-start justify-between gap-2 rounded-b-lg bg-gray-100 p-4">
+                    <div className="flex flex-col">
+                      <a href="#" className="font-bold text-gray-800 transition duration-100 hover:text-gray-500 lg:text-lg">{item.nom}</a>
+                      <span className="text-sm text-gray-500 lg:text-base">{item.auteur}</span>
                     </div>
-              </div>
-            ))}
-          </div>
-          {/* view all button */}
-          <div className="flex justify-center">
-            <button className="text-center mt-10 cursor-pointer bg-blue-300 text-white py-1 px-5 rounded-md">
-              View All Button
-            </button>
+
+                    <div className="flex flex-col items-end">
+                      <span className="font-bold text-gray-600 lg:text-lg">{item.prixPromotion}</span>
+                      <span className="text-sm text-red-500 font-bold">{item.prix}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </Slider>
           </div>
         </div>
-
-
       </div>
     </div>
   );
-};
+}
 
-export default Products;
+
