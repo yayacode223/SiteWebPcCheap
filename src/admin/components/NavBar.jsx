@@ -7,7 +7,7 @@ import profile from '../../assets/admin/profile.png'
 
 export default function NavBar({isClick, setIsClick}) {
   return (
-    <nav className='flex flex-row justify-between items-center shadow bg-white py-2 px-[4%] w-full h-auto fixed top-0 z-[100]'>
+    <nav className='flex flex-row justify-between items-center shadow bg-white py-2 px-[4%] w-full h-auto fixed top-0 z-[1000]'>
 
         <div className='text-xl font-bold'>ADMIN</div>
         <div className='flex items-center space-x-[2rem]'>

@@ -42,7 +42,8 @@ const ImageList = [
     img: Image3,
     title: "Les Nouvelles Generations",
     description:
-        "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."  },
+      "Grâce à leurs technologies avancées et leur expérience utilisateur optimisée, ils garantissent une performance fiable et sécurisée au quotidien."  
+    },
   {
     id: 4,
     img: Image4,
