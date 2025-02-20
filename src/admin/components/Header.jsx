@@ -4,7 +4,7 @@ import SideBar from './SideBar';
 
 export default function Header() {
 
-    const [isClick, setIsClick] = useState(false);
+    const [isClick, setIsClick] = useState(true);
 
   return (
 

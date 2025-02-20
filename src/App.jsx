@@ -14,8 +14,20 @@ import Apropos from "./pages/Apropos";
 import Login from "./pages/Login";
 import Registre from "./pages/Registre";
 
+import AddCategory from "./admin/pages/categories/AddCategory";
+import AddProduct from "./admin/pages/products/AddProduct";
+import EditProduct from "./admin/pages/products/EditProduct";
+import ListProducts from "./admin/pages/products/ListProducts";
+import ShowProduct from "./admin/pages/products/ShowProduct";
+import ListUser from "./admin/pages/users/ListUser";
+import AddPromos from "./admin/pages/promotion/AddPromos";
+import EditerPromos from "./admin/pages/promotion/EditerPromos";
+import ListPromos from "./admin/pages/promotion/ListPromos";
+
 import OrdiPage from "./pages/Ordinateurs/OrdiPage";
 import PhonePage from "./pages/PhonePage.jsx/Phonepage";
+
+
 const App = () => {
   const [orderPopup, setOrderPopup] = React.useState(false);
 
@@ -50,9 +62,25 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/registre" element={<Registre />} />
         </Route>
+      
 
-        <Route path="/admin" element={<Header />}>
-          <Route index path="dashboard" element={<DashBoard />} />
+        <Route path='/admin' element={<Header/>}>
+          <Route index path='dashboard' element={<DashBoard/>} />
+
+          <Route index path='categories' element={<AddCategory/>} />
+
+          <Route path="liste-produits" element={<ListProducts/>} />
+          <Route path="ajouter-produit" element={<AddProduct/>} />
+          <Route path="editer-produit/:produitId" element={<EditProduct/>} />
+          <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
+
+
+          <Route path="liste-promos" element={<ListPromos/>} />
+          <Route path="ajouter-promos" element={<AddPromos/>} />
+          <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+
+
+          <Route path="liste-utilisateurs" element={<ListUser/>} />
         </Route>
       </Routes>
 
