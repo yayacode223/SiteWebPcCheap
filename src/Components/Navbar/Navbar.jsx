@@ -73,7 +73,7 @@ const Navbar = ({ handleOrderPopup }) => {
           <span className="text-xl"><FaRegHeart /></span>
         </li>
         <li className="ml-12">
-          <span>Login</span>
+          <Link to={'/login'}>Login</Link>
         </li>
       </ul>
     </div>

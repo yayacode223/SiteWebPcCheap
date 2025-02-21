@@ -2,6 +2,10 @@ import React from "react";
 import { Routes, Route } from "react-router";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import ProtectedRoute from "./protection/ProtectedRoute";
+import { AuthProvider } from "./context/AuthContext";
+import { ProductsProvider } from "./context/ProductContext";
+import { NewsProvider } from "./context/NewsContext";
 
 //import des pages de la partie client
 import Navbar from "./Components/Navbar/Navbar";
@@ -26,6 +30,7 @@ import ListPromos from "./admin/pages/promotion/ListPromos";
 
 import OrdiPage from "./pages/Ordinateurs/OrdiPage";
 import PhonePage from "./pages/PhonePage.jsx/Phonepage";
+import { CategoryProvider } from "./context/CategoryContext";
 
 
 const App = () => {
@@ -46,43 +51,52 @@ const App = () => {
 
   return (
     <>
-      <Routes>
-        <Route
-          path="/"
-          element={<Navbar handleOrderPopup={handleOrderPopup} />}
-        >
-          <Route
-            index
-            path="/"
-            element={<Home handleOrderPopup={handleOrderPopup} />}
-          />
-          <Route path="Apropos" element={<Apropos />} />
-          <Route path="/ordinateurs" element={<OrdiPage />} />
-          <Route path="/telephones" element={<PhonePage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/registre" element={<Registre />} />
-        </Route>
-      
+    <AuthProvider>
+      <CategoryProvider>
+        <ProductsProvider>
+          <NewsProvider>
+            <Routes>
+              <Route
+                path="/"
+                element={<Navbar handleOrderPopup={handleOrderPopup} />}
+              >
+                <Route
+                  index
+                  path="/"
+                  element={<Home handleOrderPopup={handleOrderPopup} />}
+                />
+                <Route path="Apropos" element={<Apropos />} />
+                <Route path="/ordinateurs" element={<OrdiPage />} />
+                <Route path="/telephones" element={<PhonePage />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Registre />} />
+              </Route>
+            
 
-        <Route path='/admin' element={<Header/>}>
-          <Route index path='dashboard' element={<DashBoard/>} />
+              <Route path='/admin' element={<><Header/></>}>
+                <Route index path='dashboard' element={<DashBoard/>} />
 
-          <Route index path='categories' element={<AddCategory/>} />
+                <Route index path='categories' element={<AddCategory/>} />
 
-          <Route path="liste-produits" element={<ListProducts/>} />
-          <Route path="ajouter-produit" element={<AddProduct/>} />
-          <Route path="editer-produit/:produitId" element={<EditProduct/>} />
-          <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
-
-
-          <Route path="liste-promos" element={<ListPromos/>} />
-          <Route path="ajouter-promos" element={<AddPromos/>} />
-          <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+                <Route path="liste-produits" element={<ListProducts/>} />
+                <Route path="ajouter-produit" element={<AddProduct/>} />
+                <Route path="editer-produit/:produitId" element={<EditProduct/>} />
+                <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
 
 
-          <Route path="liste-utilisateurs" element={<ListUser/>} />
-        </Route>
-      </Routes>
+                <Route path="liste-promos" element={<ListPromos/>} />
+                <Route path="ajouter-promos" element={<AddPromos/>} />
+                <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+
+
+                <Route path="liste-utilisateurs" element={<ListUser/>} />
+              </Route>
+            </Routes>
+            
+          </NewsProvider>
+        </ProductsProvider>
+      </CategoryProvider>
+    </AuthProvider>
 
       {/* <div className="bg-white dark:bg-gray-900 dark:text-white w-full h-full duration-200" >
         

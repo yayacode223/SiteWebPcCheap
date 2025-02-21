@@ -6,6 +6,7 @@ import { Link } from "react-router";
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import TodoApp from '../../components/TodoApp';
+import { useProduct } from '../../../context/ProductContext';
 
 
 // Importation des images
@@ -18,10 +19,9 @@ import Image5 from "../../../assets/ImagesPC/8.jpg";
 
 export default function EditProduct() {
 
-  const params = useParams();
-  const { productId } = params;
+  // recuperation des donnes du context
 
-  
+  const {loading, setProductId, oldProduct, updateProduct} = useProduct()
   
   // Données du produit
   const product = {
