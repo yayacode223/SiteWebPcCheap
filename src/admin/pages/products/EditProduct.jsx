@@ -1,12 +1,14 @@
 import React, {useEffect, useState, useRef} from 'react'
 import { MdLaptopChromebook } from "react-icons/md";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import Slider from "react-slick";
 import { Link } from "react-router";
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import TodoApp from '../../components/TodoApp';
 import { useProduct } from '../../../context/ProductContext';
+import { useCategory } from '../../../context/CategoryContext';
+import { BASE_URL } from '../../../utils/AxiosInstance';
 
 
 // Importation des images
@@ -21,56 +23,61 @@ export default function EditProduct() {
 
   // recuperation des donnes du context
 
-  const {loading, setProductId, oldProduct, updateProduct} = useProduct()
+  const {loading, oldProduct, updateProduct} = useProduct()
+  const {categories} = useCategory();
   
   // Données du produit
-  const product = {
-    id: 3,
-    name: "Apple MacBook Pro 17",
-    category: "Ordinateurs",
-    mark: "MacBook",
-    stock: true,
-    promos: true,
-    description:
-      "So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.",
-    carateristique: [
-      "Accessories (18)",
-      "CPUs (9)",
-      "RAM: 16GH",
-      "Hard Drives (9)",
-      "Keyboards / Mice (9)",
-      "Monitors (9)",
-      "Stockage: SSD 256GH",
-      "Ecran: 14 Pouce",
-    ],
-    images: [Image1, Image2, Image3, Image4, Image5],
-  };
+  // const product = {
+  //   id: 3,
+  //   name: "Apple MacBook Pro 17",
+  //   category: "Ordinateurs",
+  //   mark: "MacBook",
+  //   stock: true,
+  //   promos: true,
+  //   description:
+  //     "So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.",
+  //   carateristique: [
+  //     "Accessories (18)",
+  //     "CPUs (9)",
+  //     "RAM: 16GH",
+  //     "Hard Drives (9)",
+  //     "Keyboards / Mice (9)",
+  //     "Monitors (9)",
+  //     "Stockage: SSD 256GH",
+  //     "Ecran: 14 Pouce",
+  //   ],
+  //   images: [Image1, Image2, Image3, Image4, Image5],
+  // };
+
+  const [product, setProduct] = useState({
+    name: oldProduct.name,
+    mark: oldProduct.mark,
+    category: oldProduct.category.id,
+    stock: oldProduct.stock,
+    promos: oldProduct.promo,
+    description: oldProduct.description,
+    images: [],
+    features: [...oldProduct.features],
+  });
 
   const [list, setList] = useState([
-    ...product.carateristique.map((caract, index) => ( 
+    ...product.features.map((feature, index) => ( 
       { 
         id: Date.now() + index,
-        title: caract,
+        title: feature,
         completed: false
       }
     )
   )])
     
-  const [features, setFeatures] = useState([]);
-  const [name, setName] = useState(product.name);
-  const [category, setCategory] = useState(product.category)
-  const [mark, setMark] = useState(product.mark)
-  const [stock, setStock] = useState(product.stock)
-  const [promos, setPromos] = useState(product.promos);
-  const [description, setDescription] = useState(product.description);
+  
   useEffect(() => {
-      setFeatures(
-        list.map((item) => (
-          item.title
-        ))
-      )
-    console.log(list)
-  }, [list])
+    setProduct({
+      ...product,
+      features: list.map((item) => item.title)
+    })
+
+  }, [list] )
 
   const settings = {
     dots: true,
@@ -85,20 +92,50 @@ export default function EditProduct() {
 
   let sliderRef = useRef(null);
   const next = () => {
-      sliderRef.slickNext();
+    sliderRef.slickNext();
   };
   const previous = () => {
-      sliderRef.slickPrev();
-  };
+    sliderRef.slickPrev();
+  }
+
+  const navigate = useNavigate();
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    if(product.category === ''){
+      alert('veuillez choisir une categorie')
+    }
+    else{
+      try{
+        updateProduct(oldProduct.id, product)
+        console.log("Ajout de produit reussi");
+        navigate('/admin/liste-produits')
+
+      } 
+      catch(error){
+        alert("erreur d'ajout de produit: "+error)
+      }
+      
+    }
+
+  }
+
+  
 
   return (
+    loading ?
+    <div>
+      <p>...Loading</p>
+    </div>
+    :
     <div className='w-full h-full'>
       <div className='flex justify-between'>
         <div className='flex flex-col space-y-0'>
-          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Editer <span className='text-black'>Produits:# {productId}</span></h2>
-          <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
+          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Editer <span className='text-black'>Produits: {product.name}</span></h2>
+          <p className='text-sm font-base text-[#4F75FF]'> {"PANNEAU D'ADMINISTRATION"} </p>
         </div>
-        <h4 className='flex items-center justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/ Produits</h4>
+        <h4 className='flex items-center justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/Produits</h4>
                           
       </div>
 
@@ -114,10 +151,10 @@ export default function EditProduct() {
               {...settings}
           >
               {
-                  product.images.map((image, index) => (
+                  oldProduct.images.map((image, index) => (
                       
                       <div key={index} className="w-full mx-auto flex items-center justify-center">
-                          <img src={image} alt="" className="block object-cover object-center" />
+                          <img src={BASE_URL.replace('/api','')+image.imageName} alt="" className="block object-cover object-center" />
                       </div>
                   ))
               }
@@ -133,31 +170,37 @@ export default function EditProduct() {
                     
         </div>
 
-        <form className='sm:w-full text-[1rem] p-4 h-auto' action="">
+        <form onSubmit={handleSubmit} className='sm:w-full text-[1rem] p-4 h-auto' action="">
             <div className='w-full h-auto space-y-4 mb-4'>
-                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='nom du produit' value={name} onChange={(e) => setName(e.target.value)}/>
-                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={mark} onChange={(e) => setMark(e.target.value)} />
+                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})}  required/>
+                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value.trim()})} required />
 
-                <select id="categories" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={category} onChange={(e) => setCategory(e.target.value)} >
-                  <option value="">Choisir la catégorie</option>
-                  <option value="ordinateur">Ordinateur</option>
-                  <option value="téléphone">Téléphone</option>
+                <select id="categories" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value.trim()})} >
+                  <option value={''} selected>Choisir la catégorie</option>
+                  {
+                    categories.map(category => {
+                      
+                      return (
+                          <option key={category.id} value={category.id}>{category.name}</option>
+                      );
+                    })
+                  }
                 </select>
 
                 <div className='flex gap-4 w-full justify-between  py-2'>
                   <div className="flex items-center w-1/2">
-                    <input id="stock" type="checkbox" value={stock} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={stock} onChange={() => setStock(!stock)} />
+                    <input id="stock" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={product.stock} value={product.stock} onChange={() => setProduct({...product, stock: !product.stock})} />
                     <label htmlFor="stock" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">En stock</label>
                   </div>
 
                   <div className="flex items-center w-1/2">
-                      <input id="promos" type="checkbox" value={promos} className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={promos} onChange={() => setPromos(!promos)} />
+                      <input id="promos" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={product.promos} value={product.promos} onChange={() => setProduct({...product, promos: !product.promos})} />
                       <label htmlFor="promos" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">En promotion</label>
                   </div>
 
                 </div>
 
-                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={description} onChange={(e) => setDescription(e.target.value)} ></textarea>
+                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value.trim()})} ></textarea>
 
                 
               

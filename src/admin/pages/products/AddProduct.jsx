@@ -77,10 +77,10 @@ export default function AddProduct() {
                 <select id="countries" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value.trim()})} >
                   <option value={''} selected>Choisir la catégorie</option>
                   {
-                    categories.map(category => {
+                    categories?.map(category => {
                       
                       return (
-                          <option key={category.id} value={category.name}>{category.name}</option>
+                          <option key={category.id} value={category.id}>{category.name}</option>
                       );
                     })
                   }
@@ -99,7 +99,7 @@ export default function AddProduct() {
 
                 </div>
 
-                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description"  ></textarea>
+                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value.trim()})}></textarea>
 
                 
               

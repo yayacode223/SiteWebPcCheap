@@ -16,12 +16,13 @@ const ProductServices = {
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("mark", product.mark);
-        formData.append("category", product.category);
+        formData.append("category_id", product.category);
         formData.append("stock", product.stock);
-        formData.append("promos", product.promos);
+        formData.append("promo", product.promos);
         formData.append("description", product.description);
 
         product.images.forEach((image) => formData.append("images[]", image));
+
         product.features.forEach((feature, index) => {
             formData.append(`features[${index}]`, feature);
         });
@@ -37,9 +38,9 @@ const ProductServices = {
         const formData = new FormData();
         formData.append("name", product.name);
         formData.append("mark", product.mark);
-        formData.append("category", product.category);
+        formData.append("category_id", product.category);
         formData.append("stock", product.stock);
-        formData.append("promos", product.promos);
+        formData.append("promo", product.promos);
         formData.append("description", product.description);
 
         product.images.forEach((image) => formData.append("images[]", image));

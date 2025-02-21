@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const CategoryContext = createContext();
 
 export const CategoryProvider = ({children}) => {
-    const [categories, setCategories] = useState([]);
+    const [categories, setCategories] = useState();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
@@ -16,7 +16,6 @@ export const CategoryProvider = ({children}) => {
 
         try{
             const data = await categoryServices.getAll();
-
             setCategories(data);
         } catch(error) {
             console.error("Erreur lors du chargement des produits :", error);

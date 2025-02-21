@@ -7,7 +7,7 @@ export const ProductsProvider = ({ children }) => {
     const [products, setProducts] = useState([]);    
     const [loading, setLoading] = useState(false);
     const [productId, setProductId] = useState(null);
-    const [oldProduct, setOldProduct] = useState(null);
+    const [oldProduct, setOldProduct] = useState({});
 
     useEffect(() => {
         fetchProducts();
@@ -35,7 +35,7 @@ export const ProductsProvider = ({ children }) => {
         setLoading(true);
         try {
             const data = await ProductServices.getOne(id);
-            setOldProduct(data);
+            setOldProduct({...data});
             
         } catch (error){
             console.log('Erreur lors de la recuperation du produit by Id :',error)

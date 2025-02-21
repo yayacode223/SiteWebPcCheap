@@ -17,7 +17,7 @@ const categoryServices = {
 
     add: async (newcategory) => {
         const response = await axiosInstance.post('/admin/category/create', {
-            'category': newcategory
+            'name': newcategory
         });
 
         return response.data
@@ -26,7 +26,7 @@ const categoryServices = {
     update: async (id, newcategory) => {
 
         const response = await axiosInstance.post(`/admin/edit_category/${id}`, {
-            'category': newcategory
+            'name': newcategory
         });
 
         return response.data;

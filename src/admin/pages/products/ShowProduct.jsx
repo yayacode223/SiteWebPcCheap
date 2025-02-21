@@ -6,6 +6,9 @@ import { Link } from "react-router";
 import { MdNavigateNext } from "react-icons/md";
 import { MdNavigateBefore } from "react-icons/md";
 import ModalPopUp from "../delete/ModalPopUp";
+import { useProduct } from "../../../context/ProductContext";
+import { BASE_URL } from "../../../utils/AxiosInstance";
+import { useNavigate } from "react-router";
 
 
 
@@ -17,11 +20,12 @@ import Image4 from "../../../assets/ImagesPC/7.jpg";
 import Image5 from "../../../assets/ImagesPC/8.jpg";
 
 export default function ShowProduct() {
-    const params = useParams();
-    const { productId } = params;
+    const {loading, oldProduct, deleteProduct, setProductId} = useProduct()
+
+
 
     // Données du produit
-    const product = {
+    let product = {
         id: 3,
         name: "Apple MacBook Pro 17",
         category: "Ordinateurs",
@@ -42,6 +46,8 @@ export default function ShowProduct() {
         ],
         images: [Image1, Image2, Image3, Image4, Image5],
     };
+
+    product = oldProduct
 
     // la fonction de gestion du carousel
     
@@ -75,22 +81,39 @@ export default function ShowProduct() {
         setSelectedProduct(productId);
         setIsModalOpen(true);
     };
+
+    const navigate = useNavigate();
     
     const confirmDelete = () => {
-        console.log(`Produit avec ID ${selectedProduct} supprimé`);
-        // Ici, ajoute la logique pour supprimer le produit dans ton état ou base de données
+        // Ici, la logique pour supprimer le produit dans la base de données
+        try{
+            deleteProduct(selectedProduct)
+            console.log(`Produit avec ID ${selectedProduct} supprimé`);
+            navigate('/admin/liste-produits')
+
+        } 
+        catch(error){
+            alert("erreur de supprission d'un produit: "+error)
+        }
         setIsModalOpen(false);
     };
 
     // Re-run when product images change
 
     return (
+        loading ?
+        <div>
+            <p>
+                ...Loading
+            </p>
+        </div>
+        :
         <div className="w-full h-full">
             {/* Header */}
             <div className="flex justify-between">
                 <div className="flex flex-col space-y-0">
                     <h2 className="text-[#4F75FF] font-bold text-[1.5rem]">
-                        Produits: <span className="text-black">{productId}</span>
+                        Produits: <span className="text-black">{product.name}</span>
                     </h2>
                     <p className="text-sm font-base text-[#4F75FF]">PANNEAU D'ADMINISTRATION</p>
                 </div>
@@ -114,7 +137,7 @@ export default function ShowProduct() {
                             product.images.map((image, index) => (
                                 
                                 <div key={index} className="md:w-full w-[80%] mx-auto flex items-center justify-center">
-                                    <img src={image}  alt="" className="block object-cover object-center" />
+                                    <img src={BASE_URL.replace('/api','')+image.imageName}  alt="" className="block object-cover object-center" />
                                 </div>
                             ))
                         }
@@ -157,7 +180,7 @@ export default function ShowProduct() {
                     <h3 className="text-gray-700 font-bold text-lg">Caracteristique:</h3>
                     <div>
                         <ul className="mt-3 space-y-2">
-                            {product.carateristique.map((feature, index) => (
+                            {product.features.map((feature, index) => (
                                 <>
                                     <li key={index} className="text-gray-600">
                                         {feature}
@@ -170,7 +193,7 @@ export default function ShowProduct() {
                 </div>
             </div>
             <div className="w-full mt-10 mx-auto flex gap-4 justify-center">
-                <Link to={`/admin/editer-produit/${product.id}`} className=" block w-[100px] cursor-pointer bg-blue-500 text-white font-bold text-sm text-center py-2 rounded-xl duration-300 ease-in-out hover:bg-blue-800" onClick={previous}>
+                <Link to={`/admin/editer-produit/${product.id}`} className=" block w-[100px] cursor-pointer bg-blue-500 text-white font-bold text-sm text-center py-2 rounded-xl duration-300 ease-in-out hover:bg-blue-800" onClick={()=>setProductId(product.id)}>
                 Editer
                 </Link>
                 <button className="block w-[100px] cursor-pointer bg-red-500 text-white font-bold text-sm py-2 rounded-xl duration-300 ease-in-out hover:bg-red-800" onClick={() => handleDeleteClick(product.id)}>
@@ -179,7 +202,7 @@ export default function ShowProduct() {
             </div>
 
             {isModalOpen && (
-                    <ModalPopUp isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} confirmDelete={confirmDelete} />
+                <ModalPopUp isModalOpen={isModalOpen} setIsModalOpen={setIsModalOpen} confirmDelete={confirmDelete} />
             )}
         </div>
     );

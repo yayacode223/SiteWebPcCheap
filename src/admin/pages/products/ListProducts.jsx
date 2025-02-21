@@ -1,99 +1,21 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MdLaptopChromebook } from "react-icons/md";
-import Image1 from "../../../assets/ImagesPC/4.jpg";
-import Image2 from "../../../assets/ImagesPC/5.jpg";
-import Image3 from "../../../assets/ImagesPC/6.jpg";
-import Image4 from "../../../assets/ImagesPC/7.jpg";
-import Image5 from "../../../assets/ImagesPC/8.jpg";
+
 import { Link } from 'react-router-dom';
 import { BiSolidShow } from "react-icons/bi";
 import ModalPopUp from '../delete/ModalPopUp';
-
-
-
-/*
- * $targetEl: required
- * options: optional
- */
-
-
+import { useProduct } from '../../../context/ProductContext';
+import { BASE_URL } from '../../../utils/AxiosInstance';
 
 
 
 
 export default function ListProducts() {
 
+  const {products, loading, setProductId, deleteProduct} = useProduct()
   
 
-  const products = [
-    {
-      id: 1,
-      name: 'Apple MacBook Pro 17',
-      category: 'Ordinateurs',
-      mark: 'MacBook',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-    {
-      id: 2,
-      name: 'Apple MacBook Pro 17',
-      category: 'Ordinateurs',
-      mark: 'MacBook',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-    {
-      id: 3,
-      name: 'Apple MacBook Pro 17',
-      category: 'Ordinateurs',
-      mark: 'MacBook',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-    {
-      id: 4,
-      name: 'Apple MacBook Pro 17',
-      category: 'Ordinateurs',
-      mark: 'MacBook',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-    {
-      id: 5,
-      name: 'Apple MacBook Pro 17',
-      category: 'Ordinateurs',
-      mark: 'MacBook',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-    {
-      id: 6,
-      name: 'EliteBook',
-      category: 'Ordinateurs',
-      mark: 'Hp',
-      stock: true,
-      promos: true,
-      description: 'So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.',
-      carateristique: ['Accessories (18)','CPUs (9)', 'RAM: 16GH','Hard Drives (9)', 'Keyboards / Mice (9)', 'Monitors (9)', 'Stockage: SSD 256GH', 'Ecran: 14 Pouce'],
-      images: [Image1,Image2,Image3, Image4, Image5]
-    },
-
-  ]
+  
 
   const [selectedCategory, setSelectedCategory] = useState('Ordinateurs');
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -106,9 +28,15 @@ export default function ListProducts() {
     setIsModalOpen(true);
   };
 
+  // la logique pour supprimer le produit dans ton état ou base de données
   const confirmDelete = () => {
-    console.log(`Produit avec ID ${selectedProduct} supprimé`);
-    // Ici, ajoute la logique pour supprimer le produit dans ton état ou base de données
+    try {
+      deleteProduct(selectedProduct);
+      console.log(`Produit avec ID ${selectedProduct} supprimé`);
+    }
+    catch(error){
+      alert('erreur de suppression: '+error)
+    }
     setIsModalOpen(false);
   };
 
@@ -116,6 +44,11 @@ export default function ListProducts() {
 
 
   return (
+    loading?
+    <div>
+      <p>...Loading</p>
+    </div>
+    :
     <div className=' w-full h-full' >
       
       <div className='flex justify-between'>
@@ -193,19 +126,19 @@ export default function ListProducts() {
                 products.map((product) => (
                   <tr key={product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
                       <td className="p-4">
-                          <img src={product.images[0]} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
+                          <img src={BASE_URL.replace('/api','')+product.images[0].imageName} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                           {product.name}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                          {product.category}
+                          {product.category.name}
                       </td>
                       <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                           {product.mark}
                       </td>
                       <td className="px-6 py-4 flex gap-8 items-center h-[150px]">
-                          <Link to={'/admin/afficher-produit/'+product.id} className='flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-blue-500 text-white duration-300 ease-in-out hover:bg-blue-900 '>
+                          <Link to={'/admin/afficher-produit/'+product.id} onClick={() => setProductId(product.id)} className='flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-blue-500 text-white duration-300 ease-in-out hover:bg-blue-900 '>
                           <BiSolidShow/> <span>Voir</span>
                           </Link>
                           <button  className="font-medium text-white flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-red-500 duration-300 ease-in-out hover:bg-red-900 " type='button' 
