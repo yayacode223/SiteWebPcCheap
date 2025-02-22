@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router';
 
 export default function AddProduct() {
 
-  const { loading, categories } = useCategory();
+  const { loading, categories, deleteCategory } = useCategory();
   const { addProduct } = useProduct();
 
   const navigate = useNavigate();

@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Outlet } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { IoHomeSharp } from "react-icons/io5";
 import { MdCastForEducation } from "react-icons/md";
 
@@ -10,6 +10,7 @@ import { BsNoiseReduction } from "react-icons/bs";
 import { FaUser } from "react-icons/fa";
 import { MdLaptopChromebook } from "react-icons/md";
 import { BsPhone } from "react-icons/bs";
+import { useAuth } from '../../context/AuthContext';
 
 
 
@@ -21,6 +22,19 @@ export default function SideBar({isClick, setIsClick}) {
     const [openProduct, setOpenProduct] = useState(false);
     const [openPromos, setOpenPromos] = useState(false);
     
+    const { logout } = useAuth();
+    const navigate = useNavigate()
+
+    function handleLogOut(){
+      try {
+        logout();
+        console.log('deconnexion reussi')
+        navigate('/')
+      }
+      catch(error) {
+        alert('erreur de deconnexion')
+      }
+    } 
     
     
   
@@ -77,7 +91,7 @@ export default function SideBar({isClick, setIsClick}) {
               </div>
             </div>
   
-            <button className='block mx-auto outline-none absolute bottom-2 left-[50%] translate-x-[-50%] rounded-xl text-center text-white w-3/4  py-2 bg-[#4F75FF] hover:bg-[#4F75FF]'>
+            <button className='block mx-auto outline-none absolute bottom-2 left-[50%] translate-x-[-50%] rounded-xl text-center text-white w-3/4  py-2 bg-[#4F75FF] hover:bg-[#4F75FF]' onClick={() => handleLogOut()}>
               <div>Log Out</div>
             </button>
           </div>

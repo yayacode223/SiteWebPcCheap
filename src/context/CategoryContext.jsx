@@ -4,7 +4,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 const CategoryContext = createContext();
 
 export const CategoryProvider = ({children}) => {
-    const [categories, setCategories] = useState();
+    const [categories, setCategories] = useState([]);
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {

@@ -73,7 +73,7 @@ const App = () => {
               </Route>
             
 
-              <Route path='/admin' element={<><Header/></>}>
+              <Route path='/admin' element={<ProtectedRoute><Header/></ProtectedRoute>}>
                 <Route index path='dashboard' element={<DashBoard/>} />
 
                 <Route index path='categories' element={<AddCategory/>} />

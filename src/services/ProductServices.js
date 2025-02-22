@@ -23,9 +23,8 @@ const ProductServices = {
 
         product.images.forEach((image) => formData.append("images[]", image));
 
-        product.features.forEach((feature, index) => {
-            formData.append(`features[${index}]`, feature);
-        });
+        formData.append(`features`, `[${product.features.map(item => "\""+item+"\"")}]`);
+       
 
         const response = await axiosInstance.post("/admin/product/create", formData, {
             headers: { "Content-Type": "multipart/form-data" },
