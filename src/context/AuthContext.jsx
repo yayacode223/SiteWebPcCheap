@@ -53,9 +53,12 @@ export const AuthProvider = ({children}) => {
 
 
     const checkUser = async () => {
+        
         setLoading(true); 
         try {
-            const response = await axiosInstance.get('/user/profile');
+            const response = await axiosInstance.get('/user/profile', {
+                withCredentials: true,
+            });
 
             setUser(response.data);
         } catch (error) {

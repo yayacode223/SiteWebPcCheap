@@ -41,7 +41,7 @@ export const CategoryProvider = ({children}) => {
         setLoading(false);
     }
 
-    const addcategory = async (category) => {
+    const addCategory = async (category) => {
 
         try{
             const newCategory = await categoryServices.add(category);
@@ -66,10 +66,10 @@ export const CategoryProvider = ({children}) => {
     }
 
 
-    const deleleCategory = async (id) => {
-        try{
+    const deleteCategory = async (id) => {
+        try {
             await categoryServices.delete(id);
-            setCategories(categories.filter((c) => c.id === id)); // Mise à jour locale
+            setCategories(categories.filter((c) => c.id !== id)); // Mise à jour locale
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
         }
@@ -77,7 +77,7 @@ export const CategoryProvider = ({children}) => {
 
 
     return (
-        <CategoryContext.Provider value={{categories, loading, fetchCategories, fetchOneCategory, addcategory, updateCategory, deleleCategory}}>
+        <CategoryContext.Provider value={{categories, loading, fetchCategories, fetchOneCategory, addCategory, updateCategory, deleteCategory}}>
             {children}
         </CategoryContext.Provider>
     )

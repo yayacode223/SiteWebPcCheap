@@ -6,7 +6,7 @@ import ModalPopUp from '../delete/ModalPopUp';
 
 export default function AddCategory() {
 
-    const {loading, categories, addcategory, deleteCategory } = useCategory();
+    const {loading, categories, addCategory, deleteCategory } = useCategory();
 
 
     const [newCategory, setNewCategory] = useState('');
@@ -15,7 +15,7 @@ export default function AddCategory() {
         e.preventDefault();
 
         try{
-            addcategory(newCategory);
+            addCategory(newCategory);
             console('ajout de categorie reussie');
         }
         catch(error){

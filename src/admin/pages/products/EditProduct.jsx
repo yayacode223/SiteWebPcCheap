@@ -26,28 +26,7 @@ export default function EditProduct() {
   const {loading, oldProduct, updateProduct} = useProduct()
   const {categories} = useCategory();
   
-  // Données du produit
-  // const product = {
-  //   id: 3,
-  //   name: "Apple MacBook Pro 17",
-  //   category: "Ordinateurs",
-  //   mark: "MacBook",
-  //   stock: true,
-  //   promos: true,
-  //   description:
-  //     "So, it is natural that this sphere is one of the most popular ones and it is really hard to offer computer hardware because of great number of competitors. We are providing a great choice of different commodities. We are producing reliable and durable goods. That is why we are always in touch with the latest new inventions and improvements. We can satisfy customers with different claims.",
-  //   carateristique: [
-  //     "Accessories (18)",
-  //     "CPUs (9)",
-  //     "RAM: 16GH",
-  //     "Hard Drives (9)",
-  //     "Keyboards / Mice (9)",
-  //     "Monitors (9)",
-  //     "Stockage: SSD 256GH",
-  //     "Ecran: 14 Pouce",
-  //   ],
-  //   images: [Image1, Image2, Image3, Image4, Image5],
-  // };
+  
 
   const [product, setProduct] = useState({
     name: oldProduct.name,
@@ -205,7 +184,7 @@ export default function EditProduct() {
                 
               
                 <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-white" htmlFor="file_input">Choisir les images</label>
-                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" multiple/>
+                <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" multiple onChange={(e) => setProduct({...product, images: Array.from(e.target.files)})} />
                 <p className="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
 
                 
