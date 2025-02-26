@@ -6,7 +6,8 @@ import ProtectedRoute from "./protection/ProtectedRoute";
 import { AuthProvider } from "./context/AuthContext";
 import { ProductsProvider } from "./context/ProductContext";
 import { NewsProvider } from "./context/NewsContext";
-
+import { UserProvider } from "./context/UserContext";
+import { DashBoardProvider } from "./context/DashBoardContext";
 //import des pages de la partie client
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./pages/Home";
@@ -55,43 +56,47 @@ const App = () => {
       <CategoryProvider>
         <ProductsProvider>
           <NewsProvider>
-            <Routes>
-              <Route
-                path="/"
-                element={<Navbar handleOrderPopup={handleOrderPopup} />}
-              >
-                <Route
-                  index
-                  path="/"
-                  element={<Home handleOrderPopup={handleOrderPopup} />}
-                />
-                <Route path="Apropos" element={<Apropos />} />
-                <Route path="/ordinateurs" element={<OrdiPage />} />
-                <Route path="/telephones" element={<PhonePage />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Registre />} />
-              </Route>
-            
+            <UserProvider>
+              <DashBoardProvider>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={<Navbar handleOrderPopup={handleOrderPopup} />}
+                  >
+                    <Route
+                      index
+                      path="/"
+                      element={<Home handleOrderPopup={handleOrderPopup} />}
+                    />
+                    <Route path="Apropos" element={<Apropos />} />
+                    <Route path="/ordinateurs" element={<OrdiPage />} />
+                    <Route path="/telephones" element={<PhonePage />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Registre />} />
+                  </Route>
+                
 
-              <Route path='/admin' element={<ProtectedRoute><Header/></ProtectedRoute>}>
-                <Route index path='dashboard' element={<DashBoard/>} />
+                  <Route path='/admin' element={<ProtectedRoute><Header/></ProtectedRoute>}>
+                    <Route index path='dashboard' element={<DashBoard/>} />
 
-                <Route index path='categories' element={<AddCategory/>} />
+                    <Route index path='categories' element={<AddCategory/>} />
 
-                <Route path="liste-produits" element={<ListProducts/>} />
-                <Route path="ajouter-produit" element={<AddProduct/>} />
-                <Route path="editer-produit/:produitId" element={<EditProduct/>} />
-                <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
-
-
-                <Route path="liste-promos" element={<ListPromos/>} />
-                <Route path="ajouter-promos" element={<AddPromos/>} />
-                <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+                    <Route path="liste-produits" element={<ListProducts/>} />
+                    <Route path="ajouter-produit" element={<AddProduct/>} />
+                    <Route path="editer-produit/:produitId" element={<EditProduct/>} />
+                    <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
 
 
-                <Route path="liste-utilisateurs" element={<ListUser/>} />
-              </Route>
-            </Routes>
+                    <Route path="liste-promos" element={<ListPromos/>} />
+                    <Route path="ajouter-promos" element={<AddPromos/>} />
+                    <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+
+
+                    <Route path="liste-utilisateurs" element={<ListUser/>} />
+                  </Route>
+                </Routes>
+              </DashBoardProvider>        
+            </UserProvider>
             
           </NewsProvider>
         </ProductsProvider>

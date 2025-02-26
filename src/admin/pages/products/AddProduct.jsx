@@ -15,8 +15,11 @@ export default function AddProduct() {
   const [list, setList] = useState([]);
 
   useEffect(() => {
-    setProduct({...product, features: list.map((item) => item.title)})
-  }, [list] )
+    setProduct(prevProduct => ({
+      ...prevProduct,
+      features: list.map(item => item.title)
+    }));
+  }, [list]);
 
   const [product, setProduct] = useState({
     name: "",
@@ -53,9 +56,14 @@ export default function AddProduct() {
 
   return (
     loading ?
-    <div>
-      <p>...Loading</p>
-    </div>
+    <div className="w-full h-[60vh] flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-2">
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+        </div>
+
+      </div>
     :
     <div className='w-full h-full'>
 
@@ -72,9 +80,9 @@ export default function AddProduct() {
         <form onSubmit={handleSubmit} className='sm:w-full text-[1rem] p-4 h-auto' action="">
             <div className='w-full h-auto space-y-4 mb-4'>
                 <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})}  required/>
-                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value.trim()})} required />
+                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value})} required />
 
-                <select id="countries" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value.trim()})} >
+                <select id="countries" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value})} >
                   <option value={''} selected>Choisir la catégorie</option>
                   {
                     categories?.map(category => {
@@ -85,6 +93,8 @@ export default function AddProduct() {
                     })
                   }
                 </select>
+
+                
 
                 <div className='flex gap-4 w-full justify-between  py-2'>
                   <div className="flex items-center w-1/2">
@@ -99,7 +109,7 @@ export default function AddProduct() {
 
                 </div>
 
-                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value.trim()})}></textarea>
+                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value})}></textarea>
 
                 
               

@@ -77,10 +77,13 @@ export default function ShowProduct() {
 
     return (
         loading ?
-        <div>
-            <p>
-                ...Loading
-            </p>
+        <div className="w-full h-[60vh] flex items-center justify-center">
+            <div className="flex items-center justify-center space-x-2">
+                <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+                <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+                <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+            </div>
+
         </div>
         :
         <div className="w-full h-full">
@@ -120,10 +123,10 @@ export default function ShowProduct() {
                     </Slider>
         
                         <button className="absolute left-0 top-1/2 -translate-y-1/2 block  cursor-pointer bg-slate-200 text-white font-bold text-sm p-1 rounded-full duration-300 ease-in-out hover:bg-slate-500" onClick={previous}>
-                        <MdNavigateBefore  />
+                        <MdNavigateBefore />
                         </button>
                         <button className="absolute right-0 top-1/2 -translate-y-1/2 block cursor-pointer bg-slate-200 text-white font-bold text-sm p-1 rounded-full duration-300 ease-in-out hover:bg-slate-500" onClick={next}>
-                        <MdNavigateNext/>
+                        <MdNavigateNext />
                         </button>
 
                     
@@ -131,7 +134,7 @@ export default function ShowProduct() {
 
                 {/* Description produit */}
                 <div className="w-full flex flex-col space-y-4 ">
-                    <h2>{oldProduct.name}</h2>
+                    <h2 className="text-xl font-bold">{oldProduct.name}</h2>
                     <hr />
                     <div>
                         <p className="text-md text-gray-500">

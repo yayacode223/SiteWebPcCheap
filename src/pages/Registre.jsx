@@ -31,6 +31,7 @@ export default function Registre() {
         } catch (error) {
           alert("erreur d'inscription",error);
         }
+        
       }
 
     }

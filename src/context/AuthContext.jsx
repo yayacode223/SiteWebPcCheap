@@ -1,93 +1,74 @@
 import { createContext, useState, useEffect, useContext } from "react";
-
 import axiosInstance from "../utils/AxiosInstance";
-import axios from "axios";
 
 const AuthContext = createContext();
 
-
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(false);
-
+    const [loading, setLoading] = useState(true); // Chargement au début
 
     useEffect(() => {
         checkUser();
-        setLoading(false)
     }, []);
 
     const login = async (email, password) => {
-        try{
-             
-            const response =  await axiosInstance.post('/login', {
-                'email': email,
-                'password': password
-            });
-            
-            checkUser(); //
-            console.log("login passe")
-        } catch(error) {
-            console.error('Erreur, de connexion', error)
+        try {
+            await axiosInstance.post('/login', { email, password }, { withCredentials: true });
+
+            // Vérifier l'utilisateur après connexion
+            await checkUser();
+            console.log("✅ Connexion réussie !");
+        } catch (error) {
+            console.error('❌ Erreur de connexion', error);
         }
     };
 
-
-    const register = async (username, email, password,) => {
-
+    const register = async (username, email, password) => {
         try {
-            await  axiosInstance.post('/register', {
-                'username': username,
-                'email': email,
-                'password': password
-            })
+            await axiosInstance.post('/register', { username, email, password }, { withCredentials: true });
 
-
-
+            // Se connecter directement après inscription
+            await login(email, password);
+        } catch (error) {
+            console.error(`❌ Erreur d'inscription: ${error}`);
+            throw error.response?.data || "Erreur d'inscription";
         }
-        catch (error) {
-            console.error(`error de l'inscription: ${error}`)
-
-            throw error.response.data;
-        }
-    }
-
+    };
 
     const checkUser = async () => {
-        
-        setLoading(true); 
+        setLoading(true);
         try {
-            const response = await axiosInstance.get('/user/profile', {
-                withCredentials: true,
-            });
+            // Récupérer l'utilisateur avec le cookie de session httpOnly
+            const response = await axiosInstance.get('/user/profile', { withCredentials: true });
 
-            setUser(response.data);
+            if (response.data) {
+                setUser(response.data);
+            } else {
+                setUser(null);
+            }
         } catch (error) {
-
-            console.error(`error dans profile : ${error}`)
+            console.error(`❌ Erreur lors de la vérification du profil : ${error}`);
             setUser(null);
         }
-
-        setLoading(false)
+        setLoading(false);
     };
 
     const logout = async () => {
         try {
-            await axiosInstance.post('/logout');
+            await axiosInstance.post('/logout', {}, { withCredentials: true });
+
             setUser(null);
-
+            console.log("✅ Déconnexion réussie !");
         } catch (error) {
-            console.error('Erreur de déconnexion', error);
+            console.error('❌ Erreur de déconnexion', error);
         }
-
     };
 
-
     return (
-        <AuthContext.Provider value={{user, login, register, logout, loading}} >
+        <AuthContext.Provider value={{ user, login, register, logout, loading }}>
             {children}
         </AuthContext.Provider>
     );
-
-}
+};
 
 export const useAuth = () => useContext(AuthContext);

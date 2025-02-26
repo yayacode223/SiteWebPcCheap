@@ -1,8 +1,18 @@
 import axiosInstance from "../utils/AxiosInstance";
 
 const ProductServices = {
-    getAll: async () => {
-        const response = await axiosInstance.get("/admin/products");
+    getAll: async (Page=1,Limit=7
+        ,categoryId=1) => {
+        const response = await axiosInstance.get("/admin/products",
+            {
+                params: {
+                    page: Page,
+                    limit: Limit,
+                    category_id: categoryId
+
+                }
+            }
+        );
         return response.data;
     },
 
@@ -23,7 +33,7 @@ const ProductServices = {
 
         product.images.forEach((image) => formData.append("images[]", image));
 
-        formData.append(`features`, `[${product.features.map(item => "\""+item+"\"")}]`);
+        formData.append(`features`, `[${product.features.map(item => "\""+item.replace('"','')+"\"")}]`);
        
 
         const response = await axiosInstance.post("/admin/product/create", formData, {
@@ -44,7 +54,7 @@ const ProductServices = {
 
         product.images.forEach((image) => formData.append("images[]", image));
         
-        formData.append(`features`, `[${product.features.map(item => "\""+item+"\"")}]`);
+        formData.append(`features`, `[${product.features.map(item => "\""+item.replace('"','')+"\"")}]`);
 
 
         const response = await axiosInstance.post(`/admin/edit_product/${id}`, formData, {

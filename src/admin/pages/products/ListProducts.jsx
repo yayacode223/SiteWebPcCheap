@@ -12,7 +12,7 @@ import { BASE_URL } from '../../../utils/AxiosInstance';
 
 export default function ListProducts() {
 
-  const {products, loading, setProductId, deleteProduct} = useProduct()
+  const {products,  currentPage, setCurrentPage, totalPages, setCategoryId, loading, setProductId, deleteProduct} = useProduct()
   
 
   
@@ -40,13 +40,57 @@ export default function ListProducts() {
     setIsModalOpen(false);
   };
 
+  // 🔹 Pagination sécurisée
+  const nextPage = () => {
+    if (currentPage < totalPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  };
+
+  const previousPage = () => {
+    if (currentPage > 1) {
+      setCurrentPage((prev) => prev - 1);
+    }
+  };
+
+
+  const generatePageNumbers = () => {
+    const pages = [];
+    const maxPagesToShow = 3; // Nombre max de pages affichées à la fois
+
+    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
+    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+
+    if (endPage - startPage < maxPagesToShow - 1) {
+      startPage = Math.max(1, endPage - maxPagesToShow + 1);
+    }
+
+    for (let i = startPage; i <= endPage; i++) {
+      pages.push(
+        <li>
+            <a href="#" className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-white'}`}
+                onClick={() => setCurrentPage(i)}
+            >
+                {i}
+            </a>
+        </li>
+      );
+    }
+
+    return pages;
+  };
   
 
 
   return (
     loading?
-    <div>
-      <p>...Loading</p>
+    <div className="w-full h-[60vh] flex items-center justify-center">
+        <div className="flex items-center justify-center space-x-2">
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+            <div className="w-4 h-4 rounded-full animate-pulse bg-blue-600"></div>
+        </div>
+
     </div>
     :
     <div className=' w-full h-full' >
@@ -123,28 +167,40 @@ export default function ListProducts() {
             </thead>
             <tbody>
               {
+                
                 products.map((product) => (
                   <tr key={product.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600">
-                      <td className="p-4">
-                          <img src={BASE_URL.replace('/api','')+product.images[0].imageName} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
-                      </td>
-                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                          {product.name}
-                      </td>
-                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                          {product.category.name}
-                      </td>
-                      <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                          {product.mark}
-                      </td>
-                      <td className="px-6 py-4 flex gap-8 items-center h-[150px]">
-                          <Link to={'/admin/afficher-produit/'+product.id} onClick={() => setProductId(product.id)} className='flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-blue-500 text-white duration-300 ease-in-out hover:bg-blue-900 '>
-                          <BiSolidShow/> <span>Voir</span>
-                          </Link>
-                          <button  className="font-medium text-white flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-red-500 duration-300 ease-in-out hover:bg-red-900 " type='button' 
-                          onClick={() => handleDeleteClick(product.id)} >Supprimer</button>
-                          
-                      </td>
+                    {
+                        product.images && product.name && product.mark && product.category.name  && product.images.length > 0 ?
+                        (
+                            <>
+                                <td className="p-4">
+                                    <img src={BASE_URL.replace('/api','')+product.images[0].imageName} className="w-16 md:w-32 max-w-full max-h-full" alt="Apple Watch" />
+                                </td>
+                                <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    {product.name}
+                                </td>
+                                <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    {product.category.name}
+                                </td>
+                                <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                                    {product.mark}
+                                </td>
+                                <td className="px-6 py-4 flex gap-8 items-center h-[150px]">
+                                    <Link to={'/admin/afficher-produit/'+product.id} onClick={() => setProductId(product.id)} className='flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-blue-500 text-white duration-300 ease-in-out hover:bg-blue-900 '>
+                                    <BiSolidShow/> <span>Voir</span>
+                                    </Link>
+                                    <button  className="font-medium text-white flex items-center justify-center gap-2 py-2 w-[100px] text-sm rounded-xl bg-red-500 duration-300 ease-in-out hover:bg-red-900 " type='button' 
+                                    onClick={() => handleDeleteClick(product.id)} >Supprimer</button>
+                                    
+                                </td>
+                            </>
+                            
+                        )
+                        :
+                        ''
+
+                    }
                   </tr>
                 ))
               }
@@ -155,26 +211,17 @@ export default function ListProducts() {
           <span className="text-sm font-normal text-gray-500 dark:text-gray-400 mb-4 md:mb-0 block w-full md:inline md:w-auto">Affichage
           <span className="font-semibold text-gray-900 dark:text-white"> 1-10</span> de <span className="font-semibold text-gray-900 dark:text-white">1000</span></span>
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
+           
               <li>
-                  <a href="#" className="flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 bg-white border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Précédent</a>
+                  <button onClick={previousPage} disabled={currentPage === 1} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'} `} >Précédent</button>
               </li>
-              <li>
-                  <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">1</a>
-              </li>
-              <li>
-                  <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">2</a>
-              </li>
-              <li>
-                  <a href="#" aria-current="page" className="flex items-center justify-center px-3 h-8 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white">3</a>
-              </li>
-              <li>
-                  <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">4</a>
-              </li>
-              <li>
-                  <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">5</a>
-              </li>
-              <li>
-          <a href="#" className="flex items-center justify-center px-3 h-8 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">Suivant</a>
+              <>
+                {
+                    generatePageNumbers()
+                }
+              </>
+              <li >
+                <button onClick={nextPage} disabled={currentPage === totalPages} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}>Suivant</button>
               </li>
           </ul>
         </nav>

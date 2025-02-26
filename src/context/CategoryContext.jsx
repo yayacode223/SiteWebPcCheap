@@ -26,8 +26,8 @@ export const CategoryProvider = ({children}) => {
 
     const fetchOneCategory = async (id) => {
 
-        setLoading(true);
         try {
+            setLoading(true);
 
             const data = await categoryServices.getOne(id);
 
@@ -42,7 +42,7 @@ export const CategoryProvider = ({children}) => {
     }
 
     const addCategory = async (category) => {
-
+        setLoading(true)
         try{
             const newCategory = await categoryServices.add(category);
 
@@ -50,12 +50,13 @@ export const CategoryProvider = ({children}) => {
         } catch(error) {
             console.error("erreur lors de l'ajout du category: ", error);
         }
-         
+         setLoading(false)
     };
 
     const updateCategory = async (id, updateCategory) => {
 
         try {
+            setLoading(true)
             const updated = await categoryServices.update(id, updateCategory);
 
             setCategories(categories.map((c) => (c.id === id? updated : c)));
@@ -63,16 +64,19 @@ export const CategoryProvider = ({children}) => {
 
             console.error("Erreur lors de l'ajout d'une categorie :", error)
         }
+        setLoading(false)
     }
 
 
     const deleteCategory = async (id) => {
-        try {
+        setLoading(true)
+        try{
             await categoryServices.delete(id);
             setCategories(categories.filter((c) => c.id !== id)); // Mise à jour locale
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
         }
+        setLoading(false)
     }
 
 

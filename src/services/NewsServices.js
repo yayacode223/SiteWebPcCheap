@@ -48,7 +48,7 @@ const NewsService = {
     },
 
     delete: async (id) => {
-        await axiosInstance.get(`/admin/delete_news/${id}`);
+        await axiosInstance.post(`/admin/delete_news/${id}`);
     },
 
 }

@@ -1,3 +1,4 @@
+import { data } from "react-router";
 import axiosInstance from "../utils/AxiosInstance";
 
 
@@ -11,9 +12,14 @@ const AuthServices = {
                 password,
             });
 
-            if(response.data.token) {
-                sessionStorage.setItem("token", response.data.token);
-                sessionStorage.setItem("user", JSON.stringify(response.data.token));
+            
+            if(response.data.token && response.data.email && response.data.roles) {
+                const user = {
+                    username: response.data.username,
+                    email: response.data.email,
+                    roles: response.data.roles
+                }
+                sessionStorage.setItem("user", JSON.stringify(user));
                 
             }
 
