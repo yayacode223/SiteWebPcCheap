@@ -1,8 +1,8 @@
 import axiosInstance from "../utils/AxiosInstance";
 
 const ProductServices = {
-    getAll: async (Page=1,Limit=7
-        ,categoryId=1) => {
+    getAll: async (Page = 1, Limit = 7
+        , categoryId = 1) => {
         const response = await axiosInstance.get("/admin/products",
             {
                 params: {
@@ -33,8 +33,8 @@ const ProductServices = {
 
         product.images.forEach((image) => formData.append("images[]", image));
 
-        formData.append(`features`, `[${product.features.map(item => "\""+item.replace('"','')+"\"")}]`);
-       
+        formData.append(`features`, `[${product.features.map(item => "\"" + item.replace('"', '') + "\"")}]`);
+
 
         const response = await axiosInstance.post("/admin/product/create", formData, {
             headers: { "Content-Type": "multipart/form-data" },
@@ -53,8 +53,8 @@ const ProductServices = {
         formData.append("description", product.description);
 
         product.images.forEach((image) => formData.append("images[]", image));
-        
-        formData.append(`features`, `[${product.features.map(item => "\""+item.replace('"','')+"\"")}]`);
+
+        formData.append(`features`, `[${product.features.map(item => "\"" + item.replace('"', '') + "\"")}]`);
 
 
         const response = await axiosInstance.post(`/admin/edit_product/${id}`, formData, {
@@ -63,7 +63,7 @@ const ProductServices = {
 
         return response.data;
     },
-    
+
     delete: async (id) => {
         await axiosInstance.get(`/admin/delete_product/${id}`);
     },
