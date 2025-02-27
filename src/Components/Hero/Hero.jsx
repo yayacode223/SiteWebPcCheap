@@ -140,7 +140,7 @@ export default function Hero({ handleOrderPopup }) {
 
   return (
 
-    <div className="relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-blue-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200">
+    <div className="dark:bg-slate-800 dark:text-white relative overflow-hidden min-h-[550px] sm:min-h-[650px] bg-blue-100 flex justify-center items-center dark:bg-slate-950 dark:text-white duration-200">
 
       {/* Hero section */}
       <div className="container pb-8 sm:pb-0 relative">

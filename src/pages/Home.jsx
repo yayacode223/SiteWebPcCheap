@@ -9,7 +9,7 @@ import Features from '../Components/Features/Features';
 
 export default function Home({handleOrderPopup}) {
   return (
-    <div className='w-full h-full'>
+    <div className='w-full h-full dark:bg-slate-800 dark:text-white'>
         <Hero handleOrderPopup={handleOrderPopup} />
         <Produits />
         <Features />

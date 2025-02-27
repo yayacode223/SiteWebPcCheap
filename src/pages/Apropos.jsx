@@ -1,91 +1,140 @@
-import React from 'react';
-import CountUp from 'react-countup';
-import Footer from '../Components/Footer/Footer';
-import Faqs from '../Components/Faqs/Faqs';
-import Contact from '../Components/Contact/Contact';
+import React from "react";
+import CountUp from "react-countup";
+import Footer from "../Components/Footer/Footer";
+import Faqs from "../Components/Faqs/Faqs";
+import Contact from "../Components/Contact/Contact";
 
-
-
-
-
-export default function Apropos () {
+export default function Apropos() {
   return (
-    <>
-  <div className="bg-white px-[4%] mt-8 mb-20">
-  <div class="bg-white py-6 sm:py-8 lg:py-12">
-  <div class="mx-auto max-w-screen-xl px-4 md:px-8">
-    <div class="grid gap-8 md:grid-cols-2 lg:gap-12">
-      <div>
-        <div class="h-64 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-auto">
-          <img src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=600&h=750" loading="lazy" alt="Photo by Martin Sanchez" class="h-full w-full object-cover object-center" />
+    <div className="bg-white  dark:bg-slate-800 dark:text-white">
+      {/* <div class="bg-white py-6 sm:py-8 lg:py-12 dark:bg-slate-800 dark:text-white">
+        <div class="mx-auto max-w-screen-xl px-4 md:px-8">
+          <div class="grid gap-8 md:grid-cols-2 lg:gap-12 ">
+            <div>
+              <div class="h-64 overflow-hidden rounded-lg bg-gray-100 shadow-lg md:h-auto">
+                <img
+                  src="https://images.unsplash.com/photo-1610465299996-30f240ac2b1c?auto=format&q=75&fit=crop&w=600&h=750"
+                  loading="lazy"
+                  alt="Photo by Martin Sanchez"
+                  class=" w-full object-cover object-center"
+                />
+              </div>
+            </div>
+
+            <div class="md:pt-8 ">
+              <h1 class="text-center pb-6 font-bold text-indigo-500 md:text-left">
+                Qui sommes nous ?
+              </h1>
+
+              <p class="mb-6 text-gray-500 sm:text-lg md:mb-8 dark:bg-slate-800 dark:text-white">
+                Chez PCcheap, nous croyons que chaque étudiant mérite d’avoir
+                accès à des ordinateurs portables neufs et performants sans se
+                ruiner. Spécialisés dans la vente de matériel informatique de
+                qualité, nous proposons des solutions technologiques adaptées
+                aux besoins des étudiants et professionnels, alliant haute
+                performance et prix abordables. Notre mission : rendre la
+                technologie accessible pour accompagner la réussite académique
+                et professionnelle de tous. Nous sommes présent au Maroc,en
+                France,Mali,Côte d'Ivoire,Afrique du Sud,Tunisie et 7 autres
+                pays.{" "}
+              </p>
+            </div>
+          </div>
+        </div> 
+      </div>  */}
+      <div class="bg-gradient-to-b from-blue-900 via-blue-800 to-blue-500 px-6 sm:py-20 py-10 font-[sans-serif]">
+        <div class="max-w-screen-xl mx-auto text-center text-white">
+          <h1 class="text-5xl max-sm:text-3xl font-extrabold leading-tight mb-6">
+            Bienvenue chez PC CHEAP 
+          </h1>
+          <p class="text-lg mb-12">
+            Votre vendeur de reference pour tous vos besoins de materiels informatique.
+          </p>
+          <button
+            type="button"
+            class="bg-blue-600 text-white text-lg tracking-wide px-8 py-2.5 rounded-full transition duration-300 ease-in-out shadow-lg hover:shadow-xl"
+          >
+            <a href="https://wa.me/22368025516?text={{ 'Bonjour, je suis intéressé par vos produits }}" 
+   target="_blank"  >Contact Whatsapp</a>
+          </button>
+        </div>
+      </div>
+      <div class="bg-white py-6 sm:py-8 dark:bg-slate-800 dark:text-white lg:py-12">
+        <div class="mx-auto  max-w-screen-2xl px-4 md:px-8">
+          <div class="rounded-lg bg-gray-100 dark:bg-slate-800 dark:text-white px-4 py-6 md:py-8 lg:py-12">
+
+            <h2 class="mb-4 text-center text-2xl font-bold dark:bg-slate-800 dark:text-white text-gray-800 md:mb-6 lg:text-3xl">
+              Qui sommes nous ?
+            </h2>
+
+            <p class="mx-auto max-w-screen-md dark:bg-slate-800 dark:text-white text-center text-gray-500 md:text-lg">
+            Chez PCcheap, nous croyons que chaque étudiant mérite d’avoir
+                accès à des ordinateurs portables neufs et performants sans se
+                ruiner. Spécialisés dans la vente de matériel informatique de
+                qualité, nous proposons des solutions technologiques adaptées
+                aux besoins des étudiants et professionnels, alliant haute
+                performance et prix abordables. Notre mission : rendre la
+                technologie accessible pour accompagner la réussite académique
+                et professionnelle de tous. Nous sommes présent au Maroc,en
+                France,Mali,Côte d'Ivoire,Afrique du Sud,Tunisie et 7 autres
+                pays.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div class="md:pt-8">
-        <p class="text-center font-bold text-indigo-500 md:text-left">Who we are</p>
+      <div class="bg-white py-6 sm:py-8 lg:py-12 dark:bg-slate-800 dark:text-white">
+        <div class="mx-auto max-w-screen-xl px-4  md:px-8">
+          {/*-- text - start */}
+          <div class="mb-8 md:mb-12 ">
+            <h2 class="mb-4 text-center text-2xl font-bold dark:bg-slate-800 dark:text-white text-gray-800 md:mb-6 lg:text-3xl">
+              Satisfaction Clienteles
+            </h2>
+          </div>
+          {/*-- text - end */}
 
-        <h1 class="mb-4 text-center text-2xl font-bold text-gray-800 sm:text-3xl md:mb-6 md:text-left">Our competitive advantage</h1>
+          <div class="grid grid-cols-2 gap-4 md:grid-cols-4 dark:bg-slate-800 dark:text-white lg:gap-8">
+            {/*-- text - start */}
+            <div class="flex flex-col items-center justify-center dark:bg-slate-800 dark:text-white rounded-lg bg-gray-100 p-4 lg:p-8">
+              <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <CountUp start={1000} end={3000} duration={3} />+
+              </div>
+              <div class="text-sm font-semibold sm:text-base">Clients</div>
+            </div>
+            {/*-- text - end */}
 
-        <p class="mb-6 text-gray-500 sm:text-lg md:mb-8">
-          This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is random or otherwise generated. It may be used to display a sample of fonts or generate text for testing. Filler text is dummy text which has no meaning however looks very similar to real text.<br /><br />
+            {/*-- text - start */}
+            <div class="flex flex-col items-center dark:bg-slate-800 dark:text-white justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+              <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <CountUp start={10} end={99} duration={3} />%
+              </div>
+              <div class="text-sm font-semibold sm:text-base">
+                Clients Satisfaits
+              </div>
+            </div>
 
-          This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is <a href="#" class="text-indigo-500 underline transition duration-100 hover:text-indigo-600 active:text-indigo-700">random</a> or otherwise generated. It may be used to display a sample of fonts or generate text for testing. Filler text is dummy text which has no meaning however looks very similar to real text.
-        </p>
+            {/*-- text - start */}
+            <div class="flex flex-col dark:bg-slate-800 dark:text-white items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+              <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <CountUp start={1} end={5} duration={3} />+
+              </div>
+              <div class="text-sm font-semibold sm:text-base">Entreprises</div>
+            </div>
+            {/*-- text - end */}
 
-        <h2 class="mb-2 text-center text-xl font-semibold text-gray-800 sm:text-2xl md:mb-4 md:text-left">About us</h2>
-
-        <p class="mb-6 text-gray-500 sm:text-lg md:mb-8">This is a section of some simple filler text, also known as placeholder text. It shares some characteristics of a real written text but is random or otherwise generated. It may be used to display a sample of fonts or generate text for testing. Filler text is dummy text which has no meaning however looks very similar to real text.</p>
+            {/*-- text - start*/}
+            <div class="flex flex-col dark:bg-slate-800 dark:text-white items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
+              <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl">
+                <CountUp start={1} end={5} duration={3} />+
+              </div>
+              <div class="text-sm font-semibold sm:text-base">Pays</div>
+            </div>
+            {/*-- text - end */}
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-      
 
-
-<div class="bg-white py-6 sm:py-8 lg:py-12">
-  <div class="mx-auto max-w-screen-xl px-4 md:px-8">
-    {/*-- text - start */}
-    <div class="mb-8 md:mb-12">
-      <h2 class="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Satisfaction Clienteles</h2>
-    </div>
-    {/*-- text - end */}
-
-    <div class="grid grid-cols-2 gap-4 md:grid-cols-4 lg:gap-8">
-       {/*-- text - start */}
-      <div class="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 lg:p-8">
-        <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl"><CountUp start={1000} end = {3000} duration={3} />+</div>
-        <div class="text-sm font-semibold sm:text-base">Clients</div>
-      </div>
-       {/*-- text - end */}
-
-       {/*-- text - start */}
-      <div class="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
-        <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl"><CountUp start={10} end = {99} duration={3} />%</div>
-        <div class="text-sm font-semibold sm:text-base">Clients Satisfaits</div>
-      </div>
-
-       {/*-- text - start */}
-      <div class="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
-        <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl"><CountUp start={1} end = {5} duration={3} />+</div>
-        <div class="text-sm font-semibold sm:text-base">Entreprises</div>
-      </div>
-       {/*-- text - end */}
-
-      {/*-- text - start*/}
-      <div class="flex flex-col items-center justify-center rounded-lg bg-gray-100 p-4 md:p-8">
-        <div class="text-xl font-bold text-indigo-500 sm:text-2xl md:text-3xl"><CountUp start={1} end = {5} duration={3} />+</div>
-        <div class="text-sm font-semibold sm:text-base">Pays</div>
-      </div>
-       {/*-- text - end */}
-    </div>
-  </div>
-</div>
-
-
-
-
-
-  <div class="bg-white py-6 sm:py-8 lg:py-12">
+      {/* <div class="bg-white py-6 sm:py-8 lg:py-12">
   <div class="mx-auto max-w-screen-xl px-4 md:px-8">
    
     <div class="mb-10 md:mb-16">
@@ -218,11 +267,10 @@ export default function Apropos () {
     
     </div>
   </div>
-</div>
-</div>
-    <Contact />
-    <Faqs/>
-    <Footer />
-</>
+</div> */}
+      <Contact />
+      <Faqs />
+      <Footer />
+    </div>
   );
-};
+}

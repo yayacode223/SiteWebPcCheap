@@ -173,7 +173,7 @@ const PhonePage = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-800 dark:text-white p-8">
       <h1 className="text-3xl font-bold mb-8">Téléphones</h1>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-64 space-y-6">
@@ -188,7 +188,7 @@ const PhonePage = () => {
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryChange(category)}
                 />
-                <label htmlFor={category} className="text-gray-700">
+                <label htmlFor={category} className="text-gray-700 dark:bg-slate-800 dark:text-white">
                   {category}
                 </label>
               </li>

@@ -37,7 +37,7 @@ export default function Registre() {
     }
 
   return (
-    <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
+    <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 dark:bg-slate-800 dark:text-white">
       <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
         <div className="text-center mb-12">
           <a href="javascript:void(0)"><img

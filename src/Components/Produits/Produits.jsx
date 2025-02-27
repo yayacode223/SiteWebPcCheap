@@ -182,19 +182,19 @@ const settings = {
 
 export default function Produits() {
   return (
-    <div className="p-4">
+    <div className="p-4 ">
       <div className="mt-14 mb-12">
         {/* Affichage Ordinateur */}
-        <div className="bg-white py-6 sm:py-8 lg:py-12">
+        <div className="bg-white py-6 sm:py-8 lg:py-12 dark:bg-slate-800 dark:text-white">
           <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
             <div className="mb-10 md:mb-16">
-              <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Ordinateurs Portables</h2>
+              <h2 className="mb-4 text-center text-2xl dark:bg-slate-800 dark:text-white font-bold text-gray-800 md:mb-6 lg:text-3xl">Ordinateurs Portables</h2>
             </div>
 
             {/* Slider */}
             <Slider {...settings}>
               {InfoProduitsPc.map((item) => (
-                <div key={item.id} className="px-2"> {/* Ajoute un espace entre les produits */}
+                <div key={item.id} className="px-2 dark:bg-slate-800 dark:text-white"> {/* Ajoute un espace entre les produits */}
                   <a href="#" className="group relative block h-96 overflow-hidden rounded-t-lg bg-gray-100">
                     <img src={item.img} loading="lazy" alt="Photo by Austin Wade" className="h-full w-full object-cover object-center transition duration-200 group-hover:scale-125" />
                     <span className="absolute left-0 top-3 rounded-r-lg bg-red-500 px-3 py-1.5 text-sm font-semibold uppercase tracking-wider text-white">{item.reduction}</span>
@@ -221,10 +221,10 @@ export default function Produits() {
 
       <div className="mt-14 mb-12">
         {/* Affichage Telephone */}
-        <div className="bg-white py-6 sm:py-8 lg:py-12">
+        <div className="bg-white py-6 sm:py-8 lg:py-12 dark:bg-slate-800 dark:text-white">
           <div className="mx-auto max-w-screen-2xl px-4 md:px-8">
-            <div className="mb-10 md:mb-16">
-              <h2 className="mb-4 text-center text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Telephones Portables</h2>
+            <div className="mb-10 md:mb-16 ">
+              <h2 className="mb-4 text-center dark:bg-slate-800 dark:text-white text-2xl font-bold text-gray-800 md:mb-6 lg:text-3xl">Telephones Portables</h2>
             </div>
 
             {/* Slider */}

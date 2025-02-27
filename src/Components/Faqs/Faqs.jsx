@@ -38,7 +38,7 @@ export default function Faqs() {
   ];
 
   return (
-    <div className="max-w-7xl mx-auto sm:px-8 px-4 font-sans mb-24">
+    <div className="max-w-7xl mx-auto sm:px-8 px-4 font-sans mb-24 dark:bg-slate-800 dark:text-white">
       <div className="mb-12 max-w-4xl">
         <h2 className="text-2xl font-bold text-gray-800 text-center">Frequently asked questions</h2>
       </div>

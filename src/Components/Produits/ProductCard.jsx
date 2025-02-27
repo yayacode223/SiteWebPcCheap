@@ -31,7 +31,7 @@ const ProductCard = ({ index, img, name, category, descriptions, caracteristique
   return (
     <>
       <div
-        className="relative w-64 bg-white border rounded-lg shadow-md overflow-hidden transition-all duration-300"
+        className="relative w-64 bg-white dark:bg-slate-800 dark:text-white border rounded-lg shadow-md overflow-hidden transition-all duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >

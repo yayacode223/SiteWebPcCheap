@@ -37,7 +37,7 @@ export default function Login() {
   }, [user, navigate]);
 
   return (
-    <div className="bg-gray-50 font-[sans-serif]">
+    <div className="bg-gray-50 font-[sans-serif] dark:bg-slate-800 dark:text-white">
       <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
         <div className="max-w-md w-full">
           <a href="#"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-40 mb-8 mx-auto block' /></a>

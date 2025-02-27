@@ -27,7 +27,7 @@ const Competences = [
 ]
 export default function Features() {
   return (
-    <div class="bg-white py-6 sm:py-8 lg:py-12 mb-24">
+    <div class="bg-white py-6 sm:py-8 lg:py-12 mb-24 dark:bg-slate-800 dark:text-white">
   <div class="mx-auto max-w-screen-2xl px-4 md:px-8">
     {/*!-- text - start --*/}
     <div class="mb-10 md:mb-16">

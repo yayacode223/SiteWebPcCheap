@@ -281,12 +281,12 @@ const OrdiPage = () => {
   const filteredProducts = Ordinateurs.filter(product => selectedCategories.includes('All') || selectedCategories.includes(product.category));
 
   return (
-    <div className="min-h-screen bg-gray-50 p-8">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-800 dark:text-white p-8">
       <h1 className="text-3xl font-bold mb-8">Ordinateurs</h1>
       <div className="flex flex-col md:flex-row gap-8">
         <div className="w-full md:w-64 space-y-6">
           <h2 className="text-lg font-semibold mb-2">Catégorie</h2>
-          <ul className="space-y-2">
+          <ul className="space-y-2 ">
             {categories.map((category) => (
               <li key={category} className="flex items-center">
                 <input
@@ -296,7 +296,7 @@ const OrdiPage = () => {
                   checked={selectedCategories.includes(category)}
                   onChange={() => handleCategoryChange(category)}
                 />
-                <label htmlFor={category} className="text-gray-700">{category}</label>
+                <label htmlFor={category} className="text-gray-700 dark:bg-slate-800 dark:text-white ">{category}</label>
               </li>
             ))}
           </ul>
