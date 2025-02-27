@@ -55,12 +55,12 @@ export const AuthProvider = ({ children }) => {
 
     const logout = async () => {
         try {
-            await axiosInstance.post('/logout', {}, { withCredentials: true });
+            await axiosInstance.post('/logout', {withCredentials: true});
 
             setUser(null);
             console.log("✅ Déconnexion réussie !");
         } catch (error) {
-            console.error('❌ Erreur de déconnexion', error);
+            console.alert('❌ Erreur de déconnexion', error);
         }
     };
 

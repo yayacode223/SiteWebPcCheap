@@ -37,16 +37,15 @@ export default function Registre() {
     }
 
   return (
-    <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4 dark:bg-slate-800 dark:text-white">
-      <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
+    <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
+      <div className="max-w-md w-full mx-auto border-gray-300 shadow-xl rounded-2xl p-8">
         <div className="text-center mb-12">
-          <a href="javascript:void(0)"><img
-            src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-40 inline-block' />
-          </a>
+          <h2 className='text-gray-800 text-center text-2xl font-bold'>S'inscrire</h2>
+          
         </div>
 
         <form onSubmit={handleSubmit}>
-          <div className="space-y-6">
+          <div className="space-y-4">
             <div>
               <input name="name" type="text" className="text-gray-800 bg-white border border-gray-300 w-full text-sm px-4 py-3 rounded-md outline-blue-500" placeholder="Entrer votre nom" value={name} onChange={(e) => setName(e.target.value.trim())} required/>
             </div>

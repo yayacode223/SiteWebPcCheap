@@ -38,8 +38,34 @@ export const UserProvider = ({children}) => {
         setLoading(false)
     }
 
+    const makeAdmin= async (id) => {
+        try{
+            setLoading(true)
+            await userServices.makeAdmin(id);
+            await fechAllUsers();
+
+            console.log(`l'utilisateur avec id= ${id} est devenu admin`)
+        }
+        catch(error){
+            console.log(`erreur lors de l'ajout du roles admin ${error}`)
+        }
+        setLoading(false)
+    }
+    const dismissAdmin= async (id) => {
+        try{
+            setLoading(true)
+            await userServices.disMissAdmin(id);
+            await fechAllUsers();
+            console.log(`l'utilisateur avec id= ${id} n'est plus admin`)
+        }
+        catch(error){
+            console.log(`erreur lors de la suppression du roles admin: ${error}`)
+        }
+        setLoading(false)
+    }
+
     return (
-        <UserContext.Provider value={{loading, users, deleteUser}}>
+        <UserContext.Provider value={{loading, users, deleteUser, makeAdmin, dismissAdmin}}>
             {children}
         </UserContext.Provider>
     )

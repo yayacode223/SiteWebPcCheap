@@ -53,11 +53,11 @@ const App = () => {
   return (
     <>
     <AuthProvider>
-      <CategoryProvider>
-        <ProductsProvider>
-          <NewsProvider>
-            <UserProvider>
-              <DashBoardProvider>
+      <NewsProvider>
+        <CategoryProvider>
+          <ProductsProvider>
+            <DashBoardProvider>
+              <UserProvider>
                 <Routes>
                   <Route
                     path="/"
@@ -95,12 +95,12 @@ const App = () => {
                     <Route path="liste-utilisateurs" element={<ListUser/>} />
                   </Route>
                 </Routes>
-              </DashBoardProvider>        
-            </UserProvider>
+              </UserProvider>
             
-          </NewsProvider>
-        </ProductsProvider>
-      </CategoryProvider>
+            </DashBoardProvider>        
+         </ProductsProvider>
+        </CategoryProvider>
+      </NewsProvider>
     </AuthProvider>
 
       {/* <div className="bg-white dark:bg-gray-900 dark:text-white w-full h-full duration-200" >

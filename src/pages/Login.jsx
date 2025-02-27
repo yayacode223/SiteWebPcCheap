@@ -40,15 +40,14 @@ export default function Login() {
     <div className="bg-gray-50 font-[sans-serif] dark:bg-slate-800 dark:text-white">
       <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
         <div className="max-w-md w-full">
-          <a href="#"><img src="https://readymadeui.com/readymadeui.svg" alt="logo" className='w-40 mb-8 mx-auto block' /></a>
 
-          <div className="p-8 rounded-2xl bg-white shadow">
+          <div className="p-8 rounded-2xl shadow-xl bg-white">
             <h2 className="text-gray-800 text-center text-2xl font-bold">Connexion</h2>
             <form onSubmit={handleSubmit} className="mt-8 space-y-4">
               <div>
                 <label className="text-gray-800 text-sm mb-2 block">Email</label>
                 <div className="relative flex items-center">
-                  <input type="text" required className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
+                  <input type="text" required className="w-full text-gray-800 text-sm border focus:border-blue-500 sadow-xl border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
                     placeholder="Enter user name" 
                     value={email} onChange={(e) => setEmail(e.target.value.trim() )}  
                   />

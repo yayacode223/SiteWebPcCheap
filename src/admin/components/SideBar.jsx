@@ -1,15 +1,12 @@
 import React, {useState} from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { IoHomeSharp } from "react-icons/io5";
-import { MdCastForEducation } from "react-icons/md";
-
 import { Link } from 'react-router-dom';
 import { BiCategory } from "react-icons/bi";
 import { BsNoiseReduction } from "react-icons/bs";
 
 import { FaUser } from "react-icons/fa";
 import { MdLaptopChromebook } from "react-icons/md";
-import { BsPhone } from "react-icons/bs";
 import { useAuth } from '../../context/AuthContext';
 
 
@@ -32,7 +29,7 @@ export default function SideBar({isClick, setIsClick}) {
         navigate('/')
       }
       catch(error) {
-        alert('erreur de deconnexion')
+        alert('erreur de deconnexion: '+error)
       }
     } 
     

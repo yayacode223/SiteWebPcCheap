@@ -5,12 +5,28 @@ import { useUsers } from '../../../context/UserContext';
 
 export default function ListUser() {
     // Récupération des utilisateurs du contexte
-    const { users = [], loading, deleteUser } = useUsers();
+    const { users = [], loading, deleteUser, makeAdmin, dismissAdmin } = useUsers();
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
     console.log("Liste des utilisateurs :", users);
+
+    const makeadmin =  async (id) => {
+        try{
+            await makeAdmin(id)
+        } catch(error){
+            console.error(`Erreur lors de l'ajout aux admins: ${error}`)
+        }
+    }
+
+    const dismissadmin =  async (id) => {
+        try{
+            await dismissAdmin(id)
+        } catch(error){
+            console.error(`Erreur lors de la suppression aux admins: ${error}`)
+        }
+    }
 
     // Suppression d'un utilisateur
     const handleDeleteClick = (userId) => {
@@ -74,9 +90,20 @@ export default function ListUser() {
                                         </th>
                                         <td className="px-6 py-4">{user.username}</td>
                                         <td className="px-6 py-4">{user.email}</td>
-                                        <td className="px-6 py-4">
+                                        <td className="px-6  py-4 flex gap-4">
                                             <button 
-                                                className="font-medium block dark:text-blue-500 rounded-lg py-1.5 w-[100px] bg-red-500 hover:bg-red-800 text-white" 
+                                                className="font-medium block dark:text-blue-500 rounded-lg py-2 w-[200px] bg-blue-500 hover:bg-blue-800 text-white" 
+                                                onClick={() => user.roles.includes('ROLE_ADMIN')? dismissadmin(user.id) : makeadmin(user.id) }
+                                            >
+                                                {
+                                                    user.roles.includes('ROLE_ADMIN')?
+                                                    'Rétirer son Rôle Admin'
+                                                    :
+                                                    'Ajouter aux admins'
+                                                }
+                                            </button>
+                                            <button 
+                                                className="font-medium block dark:text-blue-500 rounded-lg py-2 w-[100px] bg-red-500 hover:bg-red-800 text-white" 
                                                 onClick={() => handleDeleteClick(user.id)}
                                             >
                                                 Supprimer

@@ -31,15 +31,17 @@ const ProductCard = ({ index, img, name, category, descriptions, caracteristique
   return (
     <>
       <div
-        className="relative w-64 bg-white dark:bg-slate-800 dark:text-white border rounded-lg shadow-md overflow-hidden transition-all duration-300"
+        
+        className="relative w-full sm:h-[60vh] h-[50vh] bg-white border rounded-md shadow hover:shadow-2xl hover:scale-200 cursor-pointer overflow-hidden transition-all duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        <img src={img} alt={name} className="w-full h-40 object-cover" />
+      
+        <img src={img} alt={name} className="w-full h-[65%] object-cover" />
         <div className="p-4">
           <p className="text-gray-500 text-sm">{category}</p>
           <div className="flex text-yellow-400 text-sm my-1">
-            <span>⭐ ⭐ ⭐ ☆ ☆</span>
+            
           </div>
           <h3 className="text-black-600 font-semibold">{name}</h3>
         </div>

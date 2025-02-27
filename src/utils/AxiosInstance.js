@@ -2,7 +2,7 @@ import axios from "axios";
 
 import { useAuth } from "../context/AuthContext"; // Importe ton contexte Auth
 
-export const BASE_URL = "http://127.0.0.1:8000/api";
+export const BASE_URL = "http://localhost:8000/api";
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,

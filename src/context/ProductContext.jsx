@@ -90,7 +90,8 @@ export const ProductsProvider = ({ children }) => {
         <ProductContext.Provider value={{
             products, oldProduct, 
             currentPage, setCurrentPage, 
-            totalPages, setCategoryId, 
+            totalPages, setCategoryId,
+            categoryId, 
             setProductId, loading, 
             fetchProducts, fetchOneProduct, 
             addProduct, updateProduct, deleteProduct
