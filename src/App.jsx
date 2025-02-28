@@ -31,6 +31,7 @@ import ListPromos from "./admin/pages/promotion/ListPromos";
 
 import OrdiPage from "./pages/Ordinateurs/OrdiPage";
 import PhonePage from "./pages/PhonePage.jsx/Phonepage";
+import FavorisPage from "./pages/Favories/FavorisPages";
 import { CategoryProvider } from "./context/CategoryContext";
 
 
@@ -71,6 +72,7 @@ const App = () => {
                     <Route path="Apropos" element={<Apropos />} />
                     <Route path="/ordinateurs" element={<OrdiPage />} />
                     <Route path="/telephones" element={<PhonePage />} />
+                    <Route path="/favories" element={<FavorisPage />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Registre />} />
                   </Route>
