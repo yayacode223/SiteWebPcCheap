@@ -6,18 +6,19 @@ const ProductContext = createContext();
 export const ProductsProvider = ({ children }) => {
     const [products, setProducts] = useState([]);    
     const [loading, setLoading] = useState(false);
-    const [productId, setProductId] = useState(null);
+    const [productId, setProductId] = useState(sessionStorage.getItem('productId') || null);
     const [oldProduct, setOldProduct] = useState({});
     
     // 🔥 Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const [categoryId, setCategoryId] = useState(0);
     const [totalPages, setTotalPages] = useState(1);
-    const limit = 10; // Nombre d'éléments par page
+    const [limit, setLimit] = useState(10)
 
     useEffect(() => {
         fetchProducts();
-    }, [currentPage, categoryId]);
+    }, [limit, currentPage, categoryId]);
+
 
     useEffect(() => {
         if (productId !== null) {
@@ -91,7 +92,7 @@ export const ProductsProvider = ({ children }) => {
             products, oldProduct, 
             currentPage, setCurrentPage, 
             totalPages, setCategoryId,
-            categoryId, 
+            categoryId, setLimit,
             setProductId, loading, 
             fetchProducts, fetchOneProduct, 
             addProduct, updateProduct, deleteProduct

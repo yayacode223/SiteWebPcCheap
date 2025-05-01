@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import { MdLaptopChromebook } from "react-icons/md";
 import { useCategory } from '../../../context/CategoryContext';
+import { toast } from 'react-toastify';
 
 import { Link } from 'react-router-dom';
 import { BiSolidShow } from "react-icons/bi";
@@ -49,10 +50,10 @@ export default function ListProducts() {
   const confirmDelete = () => {
     try {
       deleteProduct(selectedProduct);
-      console.log(`Produit avec ID ${selectedProduct} supprimé`);
+      toast.success(`Produit avec ID ${selectedProduct} supprimé`);
     }
     catch(error){
-      alert('erreur de suppression: '+error)
+      toast.error('erreur de suppression: '+error)
     }
     setIsModalOpen(false);
   };
@@ -85,7 +86,7 @@ export default function ListProducts() {
     for (let i = startPage; i <= endPage; i++) {
       pages.push(
         <li>
-            <a href="#" className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'bg-blue-500 text-white' : 'bg-white'}`}
+            <a href="#" className={`flex items-center justify-center px-3 h-8 leading-tight dark:text-gray-100 text-gray-500 border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === i ? 'bg-blue-500 dark:bg-blue-500 text-white' : 'bg-white'}`}
                 onClick={() => setCurrentPage(i)}
             >
                 {i}
@@ -114,10 +115,10 @@ export default function ListProducts() {
       
       <div className='flex justify-between'>
         <div className='flex flex-col space-y-0'>
-          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Liste Des  <span className='text-black'>Produits</span></h2>
+          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Liste Des  <span className='text-black dark:text-gray-100'>Produits</span></h2>
           <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
         </div>
-        <h4 className='flex items-center justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/ Produits</h4>
+        <h4 className='flex items-center dark:text-gray-100 justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/ Produits</h4>
                   
       </div>
 
@@ -126,6 +127,7 @@ export default function ListProducts() {
           <div className="flex flex-column sm:flex-row flex-wrap space-y-4 sm:space-y-0 items-center justify-between pb-4">
             <div>
                 <button id="dropdownRadioButton" data-dropdown-toggle="dropdownRadio" className="w-[200px] inline-flex items-center justify-between text-gray-500 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-medium rounded-lg text-sm px-3 py-1.5 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button"   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onMouseEnter={() => setIsDropdownOpen(true)}
                 >
                     <svg className="w-3 h-3 text-gray-500 dark:text-gray-400 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
                             <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
@@ -136,7 +138,7 @@ export default function ListProducts() {
                     </svg>
                 </button>
                 {/* <!-- Dropdown menu --> */}
-                <div id="dropdownRadio" className={`w-[200px] z-[100] absolute ${isDropdownOpen ? 'block' : 'hidden'} w-48 bg-slate-100 divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600`} >
+                <div id="dropdownRadio"  className={`w-[200px] z-[100] absolute ${isDropdownOpen ? 'block' : 'hidden'} w-48 bg-slate-100 divide-y divide-gray-100 rounded-lg shadow-sm dark:bg-gray-700 dark:divide-gray-600`} onMouseLeave={() => setIsDropdownOpen(false)} >
                     <ul className="p-3 space-y-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownRadioButton">
                         <li>
                             <div className="flex items-center p-2 rounded-sm hover:bg-gray-100 dark:hover:bg-gray-600">
@@ -241,7 +243,7 @@ export default function ListProducts() {
           <ul className="inline-flex -space-x-px rtl:space-x-reverse text-sm h-8">
            
               <li>
-                  <button onClick={previousPage} disabled={currentPage === 1} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'} `} >Précédent</button>
+                  <button onClick={previousPage} disabled={currentPage === 1} className={`flex items-center justify-center px-3 h-8 ms-0 leading-tight text-gray-500 border border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === 1 ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 dark:bg-blue-500 text-white'} `} >Précédent</button>
               </li>
               <>
                 {
@@ -249,7 +251,7 @@ export default function ListProducts() {
                 }
               </>
               <li >
-                <button onClick={nextPage} disabled={currentPage === totalPages} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 text-white'}`}>Suivant</button>
+                <button onClick={nextPage} disabled={currentPage === totalPages} className={`flex items-center justify-center px-3 h-8 leading-tight text-gray-500  border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white ${currentPage === totalPages ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-500 dark:bg-blue-500 text-white'}`}>Suivant</button>
               </li>
           </ul>
         </nav>

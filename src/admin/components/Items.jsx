@@ -27,16 +27,16 @@ export default function Items({item,onDelete,onUpdate}){
                 isEdit?
                 <li className="mb-4">
                     <form className="relative" onSubmit={handleClickUpdate}>
-                        <input className="block w-full rounded-md px-4 py-2.5 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]" type="text" onChange={handleChange} value={newvalue}/>
+                        <input className="block w-full rounded-md dark:bg-gray-800 dark:text-gray-100 px-4 py-2.5 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]" type="text" onChange={handleChange} value={newvalue}/>
                         <button className="block bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-2xl shadow-blue-200 text-white font-bold rounded-md p-2.5 absolute top-1/2 translate-y-[-50%] right-0" onSubmit={handleClickUpdate}>Modifier</button>
                     </form>
                 </li>
                 :
                 <li className=" relative">
-                    <div className="block w-full rounded-md bg-white px-1 py-2.5 border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]" key={item.id}>{item.title}</div>
+                    <div className="block w-full dark:bg-gray-800 dark:text-gray-100 rounded-md bg-white px-1 py-2.5 border-[1.5px] border-none text-[1rem] focus:shadow-lg shadow-[#acbcf8]" key={item.id}>{item.title}</div>
                 
-                    <button className="block bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-2xl shadow-blue-200 text-white font-bold rounded-md p-4 absolute top-[45%] translate-y-[-50%] right-[50px] z-1" onClick={()=>setIsEdit(true)}><FaUserEdit /></button>
-                    <button className="block bg-red-500 duration-300 ease-in-out hover:bg-red-800 text-[1rem] shadow-2xl shadow-blue-200 text-white font-bold rounded-md p-4 absolute top-[45%] translate-y-[-50%] right-0" onClick={()=>onDelete(item.id)}><FaTrash /></button>
+                    <button className="block bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-2xl shadow-blue-200 dark:shadow-slate-950 text-white font-bold rounded-md p-4 absolute top-[45%] translate-y-[-50%] right-[50px] z-1" onClick={()=>setIsEdit(true)}><FaUserEdit /></button>
+                    <button className="block bg-red-500 duration-300 ease-in-out hover:bg-red-800 text-[1rem] shadow-2xl shadow-blue-200 dark:shadow-slate-950 text-white font-bold rounded-md p-4 absolute top-[45%] translate-y-[-50%] right-0" onClick={()=>onDelete(item.id)}><FaTrash /></button>
                     
                 </li>
             }

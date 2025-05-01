@@ -2,7 +2,7 @@ import axios from "axios";
 
 
 
-export const BASE_URL = "http://localhost:8000/api";
+export const BASE_URL = "http://127.0.0.1:8000/api";
 const axiosInstance = axios.create({
     baseURL: BASE_URL,
     withCredentials: true,
@@ -15,17 +15,17 @@ axiosInstance.interceptors.response.use(
     response => response,
     async error => {
         if (error.response && error.response.status === 401) {
-            console.warn("Session expirée, déconnexion...");
+            console.warn("Session expirée, déconnexion...");
 
-            // ⚠️ Vérifie si on est déjà en train de rediriger pour éviter la boucle
+            // ⚠ Vérifie si on est déjà en train de rediriger pour éviter la boucle
             if (!window.localStorage.getItem("logout_triggered")) {
                 window.localStorage.setItem("logout_triggered", "true");
 
-                alert("Votre session a expiré, veuillez vous reconnecter.");
+                alert("Votre session a expiré, veuillez vous reconnecter.");
                 
-                // ⚠️ Utilise ton contexte d'authentification
+                // ⚠ Utilise ton contexte d'authentification
                 const { logout } = useAuth();
-                logout();  // Déconnecte l'utilisateur proprement
+                logout();  // Déconnecte l'utilisateur proprement
 
                 // Redirige vers la page de connexion
                 window.location.href = "/login";
@@ -40,6 +40,3 @@ axiosInstance.interceptors.response.use(
 );
 
 export default axiosInstance;
-
-
-

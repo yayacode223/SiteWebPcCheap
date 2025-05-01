@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IoHomeSharp } from "react-icons/io5";
 import { useDashBoard } from '../../context/DashBoardContext';
 import CountUp from 'react-countup';
@@ -6,7 +6,11 @@ import CountUp from 'react-countup';
 
 export default function DashBoard() {
 
-  const {loading, stat} = useDashBoard();
+  const {loading, stat, fetchStat} = useDashBoard();
+
+  useEffect(() => {
+    fetchStat();
+  }, [])
 
   return (
     loading && stat ?
@@ -21,10 +25,10 @@ export default function DashBoard() {
     <div className='dashboard w-full h-full'>
       <div className='flex justify-between'>
         <div className='flex flex-col space-y-0'>
-          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Administration <span className='text-black'>DashBoard</span></h2>
+          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Administration <span className='text-black dark:text-gray-100'>DashBoard</span></h2>
           <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
         </div>
-        <h4 className='flex items-center justify-center text-sm font-base'><IoHomeSharp className='text-[20px] mr-4' />/ DashBoard</h4>
+        <h4 className='flex dark:text-gray-100 items-center justify-center text-sm font-base'><IoHomeSharp className='text-[20px] mr-4' />DashBoard</h4>
         
       </div>
       <div className='mt-10 grid grid-cols-dashboard gap-4 w-full h-full p-4'>

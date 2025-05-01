@@ -4,7 +4,7 @@ import { IoHomeSharp } from "react-icons/io5";
 import { Link } from 'react-router-dom';
 import { BiCategory } from "react-icons/bi";
 import { BsNoiseReduction } from "react-icons/bs";
-
+import { toast } from 'react-toastify';
 import { FaUser } from "react-icons/fa";
 import { MdLaptopChromebook } from "react-icons/md";
 import { useAuth } from '../../context/AuthContext';
@@ -25,41 +25,41 @@ export default function SideBar({isClick, setIsClick}) {
     function handleLogOut(){
       try {
         logout();
-        console.log('deconnexion reussi')
+        toast.success('deconnexion reussi')
         navigate('/')
       }
       catch(error) {
-        alert('erreur de deconnexion: '+error)
+        toast.error('erreur de deconnexion: '+error)
       }
     } 
     
     
   
     return (
-      <div className={`relative min-h-[100vh] w-full bg-white transition-all duration-700 ease-in-out ${!isClick?'px-[4%]':'sm:pl-[240px] pr-[4%]'} py-[100px] z-[10]`}>
+      <div className={`relative min-h-[100vh] w-full bg-white dark:bg-gray-900 transition-all duration-700 ease-in-out ${!isClick?'px-[4%]':'sm:pl-[260px] pr-[4%]'} py-[100px] z-[10]`}>
   
         {/* the vertical menu of admin dashboard */}
   
-        <div className={`fixed top-0 w-[200px] h-[100%] bg-bl shadow z-[100] bg-white pt-[75px]  overflow-auto transition-all duration-700 delay-0 ease-linear ${!isClick? 'left-[-50%]': 'left-0'} `}>
+        <div className={`fixed top-0 w-[240px] h-[100%] bg-bl shadow z-[100] dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-600 pt-[75px]  overflow-auto transition-all duration-700 delay-0 ease-linear ${!isClick? 'left-[-50%]': 'left-0'} `}>
           <div className='flex flex-col justify-between w-full h-full items-center'>
   
               <div className='flex flex-col justify-center space-y-2 relative'>
                 <div className='flex flex-col space-y-2'>
-                  <Link to={'dashboard'} className='flex gap-4 items-center text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 '><IoHomeSharp className='text-[25px]' /> <span>DashBoard</span>
+                  <Link to={'dashboard'} className='flex gap-4 items-center text-[#333333] dark:text-gray-100 duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 '><IoHomeSharp className='text-[25px]' /> <span>DashBoard</span>
                   </Link>
                   <ul>
                   </ul>
                 </div>
 
                 <div className='flex flex-col space-y-2'>
-                  <Link to={'/admin/categories'} className='flex gap-4 items-center text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenCategory(!openCategory)}><BiCategory className='text-[25px]' /> <span>Categories</span>
+                  <Link to={'/admin/categories'} className='flex gap-4 items-center text-[#333333] dark:text-gray-100 duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenCategory(!openCategory)}><BiCategory className='text-[25px]' /> <span>Categories</span>
                   </Link>
                 </div>
   
                 <div className='flex flex-col space-y-2'>
-                  <div className='flex gap-4 items-center text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenProduct(!openProduct)}><MdLaptopChromebook className='text-[25px]' /> <span>Produits</span>
+                  <div className='flex gap-4 items-center text-[#333333] dark:text-gray-100 duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenProduct(!openProduct)}><MdLaptopChromebook className='text-[25px]' /> <span>Produits</span>
                   </div>
-                  <ul className={`pl-8 text-base space-y-2 text-[#333333] ${!openProduct ? "hidden" : ''}`}>
+                  <ul className={`pl-8 text-base space-y-2 text-[#333333] dark:text-gray-100 ${!openProduct ? "hidden" : ''}`}>
                     <li className='ease-in-out duration-200 hover:text-[#4F75FF]'><Link to={'/admin/liste-produits'}>Voirs Les Produits</Link></li>
                     <li className='ease-in-out duration-200 hover:text-[#4F75FF]'><Link to={'ajouter-produit'}>Ajouter un Produit</Link></li>
                     
@@ -69,9 +69,9 @@ export default function SideBar({isClick, setIsClick}) {
 
 
                 <div className='flex flex-col space-y-2'>
-                  <div className='flex gap-4 items-center text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenPromos(!openPromos)}><BsNoiseReduction className='text-[25px]' /> <span>Promotions</span>
+                  <div className='flex gap-4 items-center text-[#333333] dark:text-gray-100 duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' onClick={() => setOpenPromos(!openPromos)}><BsNoiseReduction className='text-[25px]' /> <span>Promotions</span>
                   </div>
-                  <ul className={`pl-8 text-base space-y-2 text-[#333333] ${!openPromos ? "hidden" : ''}`}>
+                  <ul className={`pl-8 text-base space-y-2 text-[#333333] dark:text-gray-100 ${!openPromos ? "hidden" : ''}`}>
                     <li className='ease-in-out duration-200 hover:text-[#4F75FF]'><Link to={'/admin/liste-promos'}>Liste Des Annonces</Link></li>
                     <li className='ease-in-out duration-200 hover:text-[#4F75FF]'><Link to={'/admin/ajouter-promos'}>Ajouter Une Annonces</Link></li>
                     
@@ -80,7 +80,7 @@ export default function SideBar({isClick, setIsClick}) {
                 
   
                 <div className='flex flex-col space-y-2'>
-                  <Link to={'/admin/liste-utilisateurs'} className='flex gap-4 items-center text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' ><FaUser className='text-[25px]' /> <span>utilisateurs</span>
+                  <Link to={'/admin/liste-utilisateurs'} className='flex gap-4 items-center dark:text-gray-100 text-[#333333] duration-300 ease-in-out hover:bg-[#4F75FF] hover:text-white font-bold w-full text-lg  py-1 px-2 ' ><FaUser className='text-[25px]' /> <span>utilisateurs</span>
                   </Link>
                   
                 </div>

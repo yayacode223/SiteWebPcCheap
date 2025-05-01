@@ -1,11 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaUser } from "react-icons/fa";
 import ModalPopUp from '../delete/ModalPopUp';
 import { useUsers } from '../../../context/UserContext';
+import { toast } from 'react-toastify';
 
 export default function ListUser() {
     // Récupération des utilisateurs du contexte
-    const { users = [], loading, deleteUser, makeAdmin, dismissAdmin } = useUsers();
+    const { users = [], loading, deleteUser, makeAdmin, dismissAdmin, fechAllUsers } = useUsers();
+
+    useEffect(() => {
+        fechAllUsers();
+    }, [])
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -15,16 +20,19 @@ export default function ListUser() {
     const makeadmin =  async (id) => {
         try{
             await makeAdmin(id)
+            toast.success(`l'utilisateur ${id} est ajouté aux admin `)
         } catch(error){
-            console.error(`Erreur lors de l'ajout aux admins: ${error}`)
+            toast.error(`Erreur lors de l'ajout aux admins: ${error}`)
         }
     }
 
     const dismissadmin =  async (id) => {
         try{
             await dismissAdmin(id)
+            toast.success(`l'utilisateur ${id} n'est plus admin `)
+
         } catch(error){
-            console.error(`Erreur lors de la suppression aux admins: ${error}`)
+            toast.error(`Erreur lors de la suppression aux admins: ${error}`)
         }
     }
 
@@ -42,9 +50,9 @@ export default function ListUser() {
 
         try {
             deleteUser(selectedUser);
-            console.log(`Utilisateur avec ID ${selectedUser} supprimé`);
+            toast.success(`Utilisateur avec ID ${selectedUser} est supprimé avec succès`);
         } catch (error) {
-            console.error("Erreur lors de la suppression :", error);
+            toast.error("Erreur lors de la suppression :"+error);
         }
 
         setIsModalOpen(false);
@@ -63,17 +71,17 @@ export default function ListUser() {
             <div className='w-full h-full'>
                 <div className='flex justify-between'>
                     <div className='flex flex-col space-y-0'>
-                        <h2 className='text-[#4F75FF] font-bold text-[1.5rem]'>Liste des <span className='text-black'>Utilisateurs</span></h2>
+                        <h2 className='text-[#4F75FF] font-bold text-[1.5rem]'>Liste des <span className='text-black dark:text-gray-100'>Utilisateurs</span></h2>
                         <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
                     </div>
-                    <h4 className='flex items-center justify-center text-sm font-base'>
+                    <h4 className='flex items-center justify-center dark:text-gray-100 text-sm font-base'>
                         <FaUser className='text-[20px] mr-4' /> / Utilisateurs
                     </h4>
                 </div>
 
                 <div className="relative mt-[60px] no-scrollbar overflow-x-auto shadow-md sm:rounded-lg">
                     <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-100">
                             <tr>
                                 <th scope="col" className="px-6 py-3">#ID</th>
                                 <th scope="col" className="px-6 py-3">@Username</th>
@@ -85,14 +93,14 @@ export default function ListUser() {
                             {Array.isArray(users) && users.length > 0 ? (
                                 users.map((user) => (
                                     <tr key={user.id} className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-gray-100">
                                             {user.id}
                                         </th>
                                         <td className="px-6 py-4">{user.username}</td>
                                         <td className="px-6 py-4">{user.email}</td>
                                         <td className="px-6  py-4 flex gap-4">
                                             <button 
-                                                className="font-medium block dark:text-blue-500 rounded-lg py-2 w-[200px] bg-blue-500 hover:bg-blue-800 text-white" 
+                                                className="font-medium block  rounded-lg py-2 w-[200px] bg-blue-500 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 text-gray-100" 
                                                 onClick={() => user.roles.includes('ROLE_ADMIN')? dismissadmin(user.id) : makeadmin(user.id) }
                                             >
                                                 {
@@ -103,7 +111,7 @@ export default function ListUser() {
                                                 }
                                             </button>
                                             <button 
-                                                className="font-medium block dark:text-blue-500 rounded-lg py-2 w-[100px] bg-red-500 hover:bg-red-800 text-white" 
+                                                className="font-medium block d rounded-lg py-2 w-[100px] bg-red-600 hover:bg-red-800 text-gray-100" 
                                                 onClick={() => handleDeleteClick(user.id)}
                                             >
                                                 Supprimer

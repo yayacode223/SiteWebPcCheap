@@ -2,7 +2,11 @@ import React from "react";
 import { Routes, Route } from "react-router";
 import AOS from "aos";
 import "aos/dist/aos.css";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 import ProtectedRoute from "./protection/ProtectedRoute";
+import FavoryProtected from "./protection/FavoryProtected";
 import { AuthProvider } from "./context/AuthContext";
 import { ProductsProvider } from "./context/ProductContext";
 import { NewsProvider } from "./context/NewsContext";
@@ -11,6 +15,7 @@ import { DashBoardProvider } from "./context/DashBoardContext";
 //import des pages de la partie client
 import Navbar from "./Components/Navbar/Navbar";
 import Home from "./pages/Home";
+import NotFound from "./pages/pagesNotFound404/NotFound";
 
 // les pages de la partie admin
 import DashBoard from "./admin/pages/DashBoard";
@@ -32,7 +37,9 @@ import ListPromos from "./admin/pages/promotion/ListPromos";
 import OrdiPage from "./pages/Ordinateurs/OrdiPage";
 import PhonePage from "./pages/PhonePage.jsx/Phonepage";
 import FavorisPage from "./pages/Favories/FavorisPages";
+import DetailProduct from "./pages/detailPage/DetailProduct";
 import { CategoryProvider } from "./context/CategoryContext";
+import { FavoryProvider } from "./context/FavoryContext";
 
 
 const App = () => {
@@ -53,56 +60,72 @@ const App = () => {
 
   return (
     <>
+    {/* Ton contenu */}
+    <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="colored"
+      />
     <AuthProvider>
-      <NewsProvider>
-        <CategoryProvider>
-          <ProductsProvider>
-            <DashBoardProvider>
-              <UserProvider>
-                <Routes>
-                  <Route
-                    path="/"
-                    element={<Navbar handleOrderPopup={handleOrderPopup} />}
-                  >
+      <FavoryProvider>
+        <NewsProvider>
+          <CategoryProvider>
+            <ProductsProvider>
+              <DashBoardProvider>
+                <UserProvider>
+                  <Routes>
                     <Route
-                      index
                       path="/"
-                      element={<Home handleOrderPopup={handleOrderPopup} />}
-                    />
-                    <Route path="Apropos" element={<Apropos />} />
-                    <Route path="/ordinateurs" element={<OrdiPage />} />
-                    <Route path="/telephones" element={<PhonePage />} />
-                    <Route path="/favories" element={<FavorisPage />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Registre />} />
-                  </Route>
-                
+                      element={<Navbar handleOrderPopup={handleOrderPopup} />}
+                    >
+                      <Route
+                        index
+                        path="/"
+                        element={<Home handleOrderPopup={handleOrderPopup} />}
+                      />
+                      <Route path="Apropos" element={<Apropos />} />
+                      <Route path="/ordinateurs" element={<OrdiPage />} />
+                      <Route path="/telephones" element={<PhonePage />} />
+                      <Route path="/favories" element={<FavoryProtected><FavorisPage /></FavoryProtected>} />
+                      <Route path="/detail-products/:productId" element={<DetailProduct/>} />
+                      <Route path="/login" element={<Login />} />
+                      <Route path="/register" element={<Registre />} />
+                    </Route>
+                    <Route path="*" element={<NotFound />} />
 
-                  <Route path='/admin' element={<ProtectedRoute><Header/></ProtectedRoute>}>
-                    <Route index path='dashboard' element={<DashBoard/>} />
+                  
 
-                    <Route index path='categories' element={<AddCategory/>} />
+                    <Route path='/admin' element={<ProtectedRoute><Header/></ProtectedRoute>}>
+                      <Route index path='dashboard' element={<DashBoard/>} />
 
-                    <Route path="liste-produits" element={<ListProducts/>} />
-                    <Route path="ajouter-produit" element={<AddProduct/>} />
-                    <Route path="editer-produit/:produitId" element={<EditProduct/>} />
-                    <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
+                      <Route index path='categories' element={<AddCategory/>} />
 
-
-                    <Route path="liste-promos" element={<ListPromos/>} />
-                    <Route path="ajouter-promos" element={<AddPromos/>} />
-                    <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+                      <Route path="liste-produits" element={<ListProducts/>} />
+                      <Route path="ajouter-produit" element={<AddProduct/>} />
+                      <Route path="editer-produit/:produitId" element={<EditProduct/>} />
+                      <Route path="afficher-produit/:produitId" element={<ShowProduct/>} />
 
 
-                    <Route path="liste-utilisateurs" element={<ListUser/>} />
-                  </Route>
-                </Routes>
-              </UserProvider>
-            
-            </DashBoardProvider>        
-         </ProductsProvider>
-        </CategoryProvider>
-      </NewsProvider>
+                      <Route path="liste-promos" element={<ListPromos/>} />
+                      <Route path="ajouter-promos" element={<AddPromos/>} />
+                      <Route path="editer-promos/:promosId" element={<EditerPromos/>} />
+
+
+                      <Route path="liste-utilisateurs" element={<ListUser/>} />
+                    </Route>
+                  </Routes>
+                </UserProvider>
+              </DashBoardProvider>        
+            </ProductsProvider>
+          </CategoryProvider>
+        </NewsProvider>
+      </FavoryProvider>
     </AuthProvider>
 
       {/* <div className="bg-white dark:bg-gray-900 dark:text-white w-full h-full duration-200" >

@@ -3,6 +3,8 @@ import { MdLaptopChromebook, MdNavigateNext, MdNavigateBefore } from "react-icon
 import { useNavigate } from "react-router";
 import Slider from "react-slick";
 import TodoApp from '../../components/TodoApp';
+import { toast } from 'react-toastify';
+
 import { useProduct } from '../../../context/ProductContext';
 import { useCategory } from '../../../context/CategoryContext';
 import { BASE_URL } from '../../../utils/AxiosInstance';
@@ -72,16 +74,16 @@ export default function EditProduct() {
     e.preventDefault();
 
     if (!product || product.category === '') {
-      alert('Veuillez choisir une catégorie');
+      toast.info('Veuillez choisir une catégorie');
       return;
     }
 
     try {
       updateProduct(oldProduct.id, product);
-      console.log("✅ Produit mis à jour avec succès !");
+      toast.success("✅ Produit mis à jour avec succès !");
       navigate('/admin/liste-produits');
     } catch (error) {
-      alert("❌ Erreur lors de la mise à jour du produit : " + error);
+      toast.error("❌ Erreur lors de la mise à jour du produit : " + error);
     }
   }
 
@@ -97,14 +99,14 @@ export default function EditProduct() {
     <div className='w-full h-full'>
       <div className='flex justify-between'>
         <div className='flex flex-col space-y-0'>
-          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Éditer <span className='text-black'>Produit: {product.name}</span></h2>
+          <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Éditer <span className='text-black dark:text-gray-100'>Produit: {product.name}</span></h2>
           <p className='text-sm font-base text-[#4F75FF]'> {"PANNEAU D'ADMINISTRATION"} </p>
         </div>
-        <h4 className='flex items-center justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/Produits</h4>
+        <h4 className='flex items-center justify-center dark:text-gray-100 text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/Produits</h4>
       </div>
 
       {/* Formulaire de modification */}
-      <div className='md:w-full mt-[50px] rounded-xl  bg-slate-100 h-full gap-4 flex flex-col-reverse md:flex-row'>
+      <div className='md:w-full mt-[50px] rounded-xl p-4 bg-slate-100 dark:bg-slate-950 h-full gap-4 flex flex-col-reverse md:flex-row'>
 
         <div className="relative md:w-[30%] w-full no-scrollbar">
           <Slider ref={(slider) => { sliderRef = slider; }} {...settings}>
@@ -125,10 +127,10 @@ export default function EditProduct() {
 
         <form onSubmit={handleSubmit} className='sm:w-full text-[1rem] p-4 h-auto' action="">
           <div className='w-full h-auto space-y-4 mb-4'>
-            <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='Nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})} required />
-            <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='mark' placeholder='Marque' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value})} required />
+            <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] dark:bg-gray-800 dark:text-gray-100 text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='Nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})} required />
+            <input className='block w-full rounded-md dark:bg-gray-800 dark:text-gray-100 px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='mark' placeholder='Marque' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value})} required />
 
-            <select id="categories" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category || ''} onChange={(e) => setProduct({...product, category: e.target.value})} >
+            <select id="categories" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category || ''} onChange={(e) => setProduct({...product, category: e.target.value})} >
               <option value={''}>Choisir une catégorie</option>
               {categories.map(category => (
                 <option key={category.id} value={category.id}>{category.name}</option>
@@ -147,7 +149,7 @@ export default function EditProduct() {
               </label>
             </div>
 
-            <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value})} ></textarea>
+            <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] dark:bg-gray-800 dark:text-gray-100 rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value})} ></textarea>
               
             <label className="block mb-2 text-sm font-medium text-gray-500 dark:text-white" htmlFor="file_input">Choisir les images</label>
             <input className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-white dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" aria-describedby="file_input_help" id="file_input" type="file" multiple onChange={(e) => setProduct({...product, images: Array.from(e.target.files)})} />
@@ -155,7 +157,7 @@ export default function EditProduct() {
 
           </div>
 
-          <button className='bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-lg shadow-blue-200 block w-full text-white font-bold rounded-md p-2'>Enregistrer</button>
+          <button className='bg-blue-600 duration-300 ease-in-out hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 text-[1rem] shadow-lg shadow-blue-200 dark:shadow-slate-950 block w-full text-white font-bold rounded-md p-2'>Enregistrer</button>
         </form>
       
         <div className='sm:w-full h-[100%] p-4' >

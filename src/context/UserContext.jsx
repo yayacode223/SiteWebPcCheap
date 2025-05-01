@@ -5,13 +5,11 @@ import { Children, createContext, useContext, useEffect, useState } from "react"
 const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
-    const [users, setUsers] = useState([]);
+    const [users, setUsers, de] = useState([]);
     const [loading, setLoading] = useState(false);
 
 
-    useEffect(() => {
-        fechAllUsers();
-    }, [])
+    
 
     const fechAllUsers = async () => {
         setLoading(true);
@@ -29,8 +27,7 @@ export const UserProvider = ({children}) => {
         try{
             setLoading(true);
             await userServices.delete(id);
-            // la mise à jour local
-            setUsers(users.filter((user)=>user.id !== id));
+            fechAllUsers();
         }
         catch(error){
             console.error('erreur lors de la suppression du user: '+error)
@@ -65,7 +62,7 @@ export const UserProvider = ({children}) => {
     }
 
     return (
-        <UserContext.Provider value={{loading, users, deleteUser, makeAdmin, dismissAdmin}}>
+        <UserContext.Provider value={{loading, users, fechAllUsers, deleteUser, makeAdmin, dismissAdmin}}>
             {children}
         </UserContext.Provider>
     )

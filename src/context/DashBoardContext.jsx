@@ -11,8 +11,8 @@ export const DashBoardProvider = ({children}) => {
     }, [])
 
     const fetchStat =  async () => {
+        setLoading(true);
         try{
-            setLoading(true);
             const data = await DashBoardServices.getStat();
             setStat(data)
         } catch(error){
@@ -23,7 +23,7 @@ export const DashBoardProvider = ({children}) => {
     }
 
     return (
-        <DashBoardContext.Provider value={{stat, loading}} > 
+        <DashBoardContext.Provider value={{stat, loading, fetchStat}} > 
             {children}
         </DashBoardContext.Provider>
     )

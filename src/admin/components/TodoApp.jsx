@@ -56,12 +56,12 @@ export default function TodoApp({features, setFeatures}){
         >
 
           <input
-          className="block w-[95%] rounded-md px-4 py-2.5 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]" 
+          className="block w-[95%] dark:bg-gray-800 dark:text-gray-100 rounded-md px-4 py-2.5 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]" 
             type="text" 
             onChange={handleChange}
             value={itemTodo} />
 
-          <button className="block bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-2xl shadow-blue-200 text-white font-bold rounded-full p-4 absolute top-1/2 translate-y-[-50%] right-0"
+          <button className="block bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-2xl shadow-blue-200 text-white dark:shadow-slate-950 font-bold rounded-full p-4 absolute top-1/2 translate-y-[-50%] right-0"
             onClick={handleSubmit} 
             type="submit">
               <IoAdd />

@@ -4,6 +4,12 @@ import { CiMenuFries } from "react-icons/ci";
 import profile from '../../assets/admin/profile.png'
 import { useAuth } from '../../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { FaUserCircle } from "react-icons/fa";
+import { toast } from 'react-toastify';
+
+import DarkMode from '../../Components/Navbar/DarkMode';
+import { Link } from 'react-router-dom';
+
 
 
 
@@ -18,59 +24,58 @@ export default function NavBar({isClick, setIsClick}) {
 
     try {
       await logout();
-      console.log('deconnexion reussi')
+      toast.success('deconnexion reussi')
     }
     catch(error) {
-      console.error('erreur de deconnexion: ',error)
+      toast.error('erreur de deconnexion: ',error)
     }
     navigate('/')
 
   }
 
   return (
-    <nav className='flex flex-row justify-between items-center shadow bg-white py-2 px-[4%] w-full h-auto fixed top-0 z-[1000]'>
+    <nav className='flex flex-row justify-between items-center shadow bg-white dark:bg-gradient-to-r dark:from-blue-600 dark:to-purple-600 py-2 px-[4%] w-full h-auto fixed top-0 z-[1000]'>
 
-        <div className='text-xl font-bold'>ADMIN</div>
+        <div className='text-xl dark:text-gray-100 font-bold'>ADMIN</div>
         <div className='flex items-center space-x-[2rem]'>
         <div className='absolute top-1/2 left-[150px] bg-slate-100 cursor-pointer p-2 rounded-lg translate-y-[-50%]' onClick={()=> setIsClick(!isClick)}><CiMenuFries /></div>
             <div className='notification text-[20px] text-orange-400 '>
                 <IoNotifications />
             </div>
+            <DarkMode />
             <div className='profile w-[50px] cursor-pointer'
               onMouseEnter={() => setIsPopoverOpen(true)}
             >
               <img className='object-center object-cover' src={profile} alt="profile" />
             </div>
               
-          {isPopoverOpen && (
-            <div
-              className="absolute z-[1000] w-64 text-sm text-gray-500 bg-white border border-gray-200 rounded-lg shadow-lg dark:text-gray-400 dark:border-gray-600 dark:bg-gray-800 top-12 right-10"
-              onMouseLeave={() => setIsPopoverOpen(false)}
-            >
-              <div className="px-3 py-2 bg-gray-100 border-b border-gray-200 rounded-t-lg dark:border-gray-600 dark:bg-gray-700">
-                <h3 className="font-semibold text-gray-900 dark:text-white">
-                  Profil utilisateur
-                </h3>
+            {isPopoverOpen && (
+              <div className="absolute space-y-2 right-10 top-10 bg-white dark:bg-gray-800 rounded-lg shadow-xl p-4 w-64" onMouseLeave={() => setIsPopoverOpen(false)}>
+                <div className="text-start dark:text-gray-300">
+                  <FaUserCircle className="text-[30px] mx-auto text-gray-600 dark:text-gray-300" />
+                  <h3 className="mt-2  text-gray-500 ">
+                    <span className="text-gray-800 font-semibold dark:text-gray-100">Nom: </span>{user.username}
+                  </h3>
+                  <p className="text-gray-500">
+                    <span className="text-gray-800 font-semibold dark:text-gray-100">Email: </span>{user.email}
+                  </p>
+                </div>
+                <div className=" w-full flex flex-col space-y-1 ">
+                  <button
+                    className="block py-2 px-4 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-blue-600"
+                  >
+                    <Link to={'/'}>Accueil</Link>
+                  </button>
+                  <button
+                    onClick={handleLogout}
+                    className="block py-2 px-4 text-left hover:bg-gray-100 dark:hover:bg-gray-700 rounded-md text-red-500"
+                  >
+                    Déconnexion
+                  </button>
+                  
+                </div>
               </div>
-              <div className="px-3 py-2 space-y-2 ">
-                <p className="text-gray-800  font-bold">
-                  Name: <span className="text-gray-500 font-medium ">{user.username}</span>
-                </p>
-                <p className="text-gray-800 ">
-                  Email: <span className="text-gray-500 font-medium">{user.email}</span>
-                </p>
-                <p className="text-gray-800 font-bold">
-                  Rôle:
-                  <span className="text-gray-500 font-medium">
-                    {user.roles.includes("ROLE_ADMIN") ? "Administrateur" : "Utilisateur"}
-                  </span>
-                </p>
-                <p className="text-blue-500 text-lg cursor-pointer" onClick={handleLogout}>
-                  Déconnexion
-                </p>
-              </div>
-            </div>
-          )}
+            )}
               
         </div>
         

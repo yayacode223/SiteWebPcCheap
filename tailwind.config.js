@@ -13,6 +13,7 @@ export default {
     extend: {
       gridTemplateColumns: {
         'dashboard': 'repeat(auto-fit, minmax(200px, auto))',
+        'sm:productPage': 'repeat(auto-fit, minmax(150px, auto))',
         'productPage': 'repeat(auto-fit, minmax(240px, auto))',
       },
       fontFamily: {

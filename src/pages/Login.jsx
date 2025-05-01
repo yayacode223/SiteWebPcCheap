@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { toast } from 'react-toastify';
+
 
 export default function Login() {
   
@@ -17,48 +19,43 @@ export default function Login() {
 
     try {
       await login(email, password); // 🔥 Attendre la connexion
+      toast.success("connection reussie")
       setLoading(false);
     } catch (error) {
       setLoading(false);
-      alert(error.message);
+      toast.error(error.message);
     }
   }
 
   // ✅ Redirection après mise à jour de `user`
   useEffect(() => {
     if(user){
-      if (user.roles.includes('ROLE_ADMIN')) {
-        navigate('/admin/dashboard'); // 🚀 Redirection dès que `user` est défini
-      }
-      else{
-        navigate('/')
-      }
+      navigate('/'); // 🚀 Redirection dès que `user` est défini
+      
     }
   }, [user, navigate]);
 
   return (
-    <div className="bg-gray-50 font-[sans-serif] dark:bg-slate-800 dark:text-white">
+    <div className=" font-[sans-serif] dark:text-white">
       <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
         <div className="max-w-md w-full">
 
-          <div className="p-8 rounded-2xl shadow-xl bg-white">
-            <h2 className="text-gray-800 text-center text-2xl font-bold">Connexion</h2>
-            <form onSubmit={handleSubmit} className="mt-8 space-y-4">
+          <div className="p-8 space-y-8 rounded-2xl shadow-xl bg-white dark:bg-gray-700">
+            <h2 className="text-gray-800 dark:text-gray-100 text-center text-2xl font-bold">Connexion</h2>
+            <form onSubmit={handleSubmit} className="mt-8 space-y-8">
               <div>
-                <label className="text-gray-800 text-sm mb-2 block">Email</label>
                 <div className="relative flex items-center">
-                  <input type="text" required className="w-full text-gray-800 text-sm border focus:border-blue-500 sadow-xl border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
-                    placeholder="Enter user name" 
+                  <input type="text" required className="w-full dark:bg-transparent dark:text-gray-200 text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
+                    placeholder="Entrer votre E-mail" 
                     value={email} onChange={(e) => setEmail(e.target.value.trim() )}  
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-gray-800 text-sm mb-2 block">Mot de Passe</label>
                 <div className="relative flex items-center">
-                  <input type="password" required className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
-                    placeholder="Enter password" 
+                  <input type="password" required className="w-full dark:bg-transparent dark:text-gray-100 text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600" 
+                    placeholder="Entrer votre mot de passe" 
                     value={password} onChange={(e) => setPassword(e.target.value.trim())} 
                   />
                 </div>
@@ -79,7 +76,7 @@ export default function Login() {
                 </button>
               </div>
 
-              <p className="text-gray-800 text-sm !mt-8 text-center">
+              <p className="text-gray-800 dark:text-gray-100 text-sm !mt-8 text-center">
                 Avez-vous déjà un compte ? 
                 <Link to={'/register'} className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold">S'inscrire</Link>
               </p>

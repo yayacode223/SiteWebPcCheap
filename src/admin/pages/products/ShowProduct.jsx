@@ -8,6 +8,8 @@ import { MdNavigateBefore } from "react-icons/md";
 import ModalPopUp from "../delete/ModalPopUp";
 import { useProduct } from "../../../context/ProductContext";
 import { BASE_URL } from "../../../utils/AxiosInstance";
+import { toast } from 'react-toastify';
+
 import { useNavigate } from "react-router";
 
 
@@ -63,12 +65,12 @@ export default function ShowProduct() {
         // Ici, la logique pour supprimer le produit dans la base de données
         try{
             deleteProduct(selectedProduct)
-            console.log(`Produit avec ID ${selectedProduct} supprimé`);
+            toast.success(`Produit avec ID ${selectedProduct} supprimé`);
             navigate('/admin/liste-produits')
 
         } 
         catch(error){
-            alert("erreur de supprission d'un produit: "+error)
+            toast.error("erreur de supprission d'un produit: "+error)
         }
         setIsModalOpen(false);
     };
@@ -91,11 +93,11 @@ export default function ShowProduct() {
             <div className="flex justify-between">
                 <div className="flex flex-col space-y-0">
                     <h2 className="text-[#4F75FF] font-bold text-[1.5rem]">
-                        Produits: <span className="text-black">{oldProduct.name}</span>
+                        Produits: <span className="text-black dark:text-gray-100">{oldProduct.name}</span>
                     </h2>
                     <p className="text-sm font-base text-[#4F75FF]">PANNEAU D'ADMINISTRATION</p>
                 </div>
-                <h4 className="flex items-center justify-center text-sm font-base">
+                <h4 className="flex items-center dark:text-gray-100 justify-center text-sm font-base">
                     <MdLaptopChromebook className="text-[20px] mr-4" />
                     / Produits
                 </h4>
@@ -134,34 +136,34 @@ export default function ShowProduct() {
 
                 {/* Description produit */}
                 <div className="w-full flex flex-col space-y-4 ">
-                    <h2 className="text-xl font-bold">{oldProduct.name}</h2>
+                    <h2 className="text-xl dark:text-gray-100 font-bold">{oldProduct.name}</h2>
                     <hr />
                     <div>
-                        <p className="text-md text-gray-500">
+                        <p className="text-md text-gray-500 dark:text-gray-100">
                             catégorie: <span className="text-blue-500"> {oldProduct.category.name} </span>
                         </p>
-                        <p className="text-md text-gray-500">
+                        <p className="text-md text-gray-500 dark:text-gray-100">
                             marque: <span className="text-blue-500"> {oldProduct.mark} </span>
                         </p>
                     </div>
                     <hr />
                     <div>
-                        <h3 className="font-bold text-lg text-gray-700">
+                        <h3 className="font-bold text-lg text-gray-700 dark:text-gray-100">
                             Description:
                         </h3>
-                        <p className="text-[1rem] text-gray-600">
+                        <p className="text-[1rem] dark:text-gray-400 text-gray-600">
                             {oldProduct.description}
                         </p>
                     </div>
                     
                 </div>
-                <div className="w-full bg-white space-y-4">
-                    <h3 className="text-gray-700 font-bold text-lg">Caracteristique:</h3>
+                <div className="w-full  space-y-4">
+                    <h3 className="text-gray-700 dark:text-gray-100 font-bold text-lg">Caracteristique:</h3>
                     <div>
                         <ul className="mt-3 space-y-2">
                             {oldProduct.features.map((feature, index) => (
                                 <div key={index}>
-                                    <li className="text-gray-600">
+                                    <li className="text-gray-600 dark:text-gray-400">
                                         {feature}
                                     </li>
                                     <hr />

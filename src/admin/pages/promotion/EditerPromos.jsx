@@ -3,6 +3,7 @@ import { BsNoiseReduction } from "react-icons/bs";
 import { useNews } from '../../../context/NewsContext';
 import { BASE_URL } from '../../../utils/AxiosInstance';
 import { useNavigate } from 'react-router-dom';  // 🔹 Ajout de l'import correct
+import { toast } from 'react-toastify';
 
 export default function EditerPromos() {
     // Récupération de `oldNews` et des fonctions du contexte
@@ -30,16 +31,16 @@ export default function EditerPromos() {
         e.preventDefault();
 
         if (!newNews.title || !newNews.body) {
-            console.error("Tous les champs doivent être remplis.");
+            toast.info("Tous les champs doivent être remplis.");
             return;
         }
 
         try {
             await updateNews(oldNews.id, newNews);
-            console.log('Modification de News réussie');
+            toast.success('Modification de News réussie');
             navigate('/admin/liste-promos');
         } catch (error) {
-            console.error("Erreur lors de la modification d'une annonce : " + error);
+            toast.error("Erreur lors de la modification d'une annonce : " + error);
         }
     }
 
@@ -57,11 +58,11 @@ export default function EditerPromos() {
                 <div className='flex justify-between'>
                     <div className='flex flex-col space-y-0'>
                         <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>
-                            Éditer <span className='text-black'>L'annonce : {oldNews?.title} </span>
+                            Éditer <span className='text-black dark:text-gray-100'>L'annonce : {oldNews?.title} </span>
                         </h2>
                         <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
                     </div>
-                    <h4 className='flex items-center justify-center text-sm font-base'>
+                    <h4 className='flex items-center justify-center text-sm text-gray-100 font-base'>
                         <BsNoiseReduction className='text-[20px] mr-4' /> / Promotions
                     </h4>
                 </div>
@@ -70,17 +71,17 @@ export default function EditerPromos() {
                 {oldNews?.image && (
                     <img 
                         className='block mt-[60px]' 
-                        src={`${BASE_URL.replace('/api', '')}${oldNews.image}`} 
+                        src={BASE_URL.replace('/api', '')+oldNews.image} 
                         width={150} 
                         alt={oldNews.title} 
                     />
                 )}
 
-                <div className='mt-[60px] bg-slate-100 w-full h-full'>
+                <div className='mt-[60px] p-4 bg-slate-100 dark:bg-slate-950 w-full h-full'>
                     <form onSubmit={handleSubmit}>
                         <div className="relative text-[1rem] p-4 h-auto">
                             <input 
-                                className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' 
+                                className='block w-full dark:bg-gray-800 dark:text-gray-100 rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' 
                                 type="text" 
                                 placeholder='Titre' 
                                 value={newNews.title} 
@@ -89,7 +90,7 @@ export default function EditerPromos() {
                             />
 
                             <textarea 
-                                className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF] mb-4' 
+                                className='block w-full h-[200px] p-2 dark:bg-gray-800 dark:text-gray-100 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF] mb-4' 
                                 placeholder='Écrivez un paragraphe' 
                                 value={newNews.body} 
                                 onChange={(e) => setNewNews({ ...newNews, body: e.target.value })} 
@@ -97,7 +98,7 @@ export default function EditerPromos() {
                             ></textarea>
 
                             <label 
-                                className="block mb-2 text-sm font-medium text-gray-500 dark:text-white" 
+                                className="block mb-2 text-sm font-medium text-gray-500 dark:text-gray-100" 
                                 htmlFor="file_input"
                             >
                                 Choisir une nouvelle image
@@ -116,7 +117,7 @@ export default function EditerPromos() {
 
                         <button 
                             type='submit' 
-                            className='bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-lg shadow-blue-200 block w-full text-white font-bold rounded-md p-2 '
+                            className='bg-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600 duration-300 ease-in-out  text-[1rem] shadow-lg shadow-blue-200 block w-full dark:shadow-slate-950 text-white font-bold rounded-md p-2 '
                         >
                             Enregistrer
                         </button>

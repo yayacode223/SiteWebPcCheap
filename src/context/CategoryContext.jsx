@@ -44,9 +44,9 @@ export const CategoryProvider = ({children}) => {
     const addCategory = async (category) => {
         setLoading(true)
         try{
-            const newCategory = await categoryServices.add(category);
+            await categoryServices.add(category);
+            fetchCategories();
 
-            setCategories([...categories, newCategory]) // mise à jour locale
         } catch(error) {
             console.error("erreur lors de l'ajout du category: ", error);
         }
@@ -58,8 +58,8 @@ export const CategoryProvider = ({children}) => {
         try {
             setLoading(true)
             const updated = await categoryServices.update(id, updateCategory);
+            fetchCategories();
 
-            setCategories(categories.map((c) => (c.id === id? updated : c)));
         } catch(error) {
 
             console.error("Erreur lors de l'ajout d'une categorie :", error)
@@ -72,7 +72,7 @@ export const CategoryProvider = ({children}) => {
         setLoading(true)
         try{
             await categoryServices.delete(id);
-            setCategories(categories.filter((c) => c.id !== id)); // Mise à jour locale
+            fetchCategories();
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
         }

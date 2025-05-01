@@ -5,6 +5,7 @@ import { MdEdit } from "react-icons/md";
 import ModalPopUp from '../delete/ModalPopUp';
 import { useNews } from '../../../context/NewsContext';
 import { BASE_URL } from '../../../utils/AxiosInstance';
+import { toast } from 'react-toastify';
 
 export default function ListPromos() {
     const { news, loading, setNewsId, deleteNews } = useNews();
@@ -25,9 +26,9 @@ export default function ListPromos() {
         console.log(`Suppression de l'annonce avec ID ${selectedPromos}`);
         try {
             deleteNews(selectedPromos);
-            console.log('Suppression réussie');
+            toast.success('Suppression réussie');
         } catch (error) {
-            console.error('Erreur de suppression : ' + error);
+            toast.error('Erreur de suppression : ' + error);
         }
         setIsModalOpen(false);
     };
@@ -46,11 +47,11 @@ export default function ListPromos() {
                 <div className='flex justify-between'>
                     <div className='flex flex-col space-y-0'>
                         <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>
-                            Liste <span className='text-black'>Des annonces de Promotion</span>
+                            Liste <span className='text-black dark:text-gray-100'>Des annonces de Promotion</span>
                         </h2>
                         <p className='text-sm font-base text-[#4F75FF]'>{"PANNEAU D'ADMINISTRATION"}</p>
                     </div>
-                    <h4 className='flex items-center justify-center text-sm font-base'>
+                    <h4 className='flex items-center justify-center dark:text-gray-100 text-sm font-base'>
                         <BsNoiseReduction className='text-[20px] mr-4' /> / Promotions
                     </h4>
                 </div>

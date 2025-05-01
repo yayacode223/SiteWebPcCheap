@@ -1,122 +1,150 @@
 import React, { useState } from "react";
 import PropTypes from 'prop-types';
 import { FaRegHeart, FaHeart } from "react-icons/fa";
+import promo from "../../assets/promo.png"
 import { BsEye } from "react-icons/bs";
-import { AiOutlineClose } from "react-icons/ai";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const ProductCard = ({ index, img, name, category, descriptions, caracteristiques, images }) => {
+import { useProduct } from "../../context/ProductContext";
+import { useFavory } from "../../context/FavoryContext";
+import { useAuth } from "../../context/AuthContext";
+import { BASE_URL } from "../../utils/AxiosInstance";
+
+const ProductCard = ({product}) => {
+
+  // import des controles du context useProduct
+  const {setProductId} = useProduct();
+  const {addFavory, loading, deleteFavory} = useFavory();
+  const { user } = useAuth();
+
+
+  // declaration des etats
   const [isHovered, setIsHovered] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate();
 
-  const handleViewDetails = () => {
-    setShowPopup(true);
+ 
+  const handleFavories = async (id) => {
+    if(user){
+      if(!isFavorite){
+        try{
+          await addFavory(id);
+          toast.success("Favoris ajouté avec succès")
+        } catch(error) {
+          toast.error("erreur lors de l'ajout !" +error)
+        }
+
+        setIsFavorite(!isFavorite)
+      }else{
+        try{
+          await deleteFavory(id);
+          toast.success('favoris supprimé avec succès')
+        } catch(error) {
+          toast.error(`erreur lors de la suppression du produit ${id} aux favoris: ${error}`)
+        }
+
+        setIsFavorite(!isFavorite)
+      }
+
+    } else {
+      toast.error('Vous êtes déconnecté,Veuillez vous connecter !')
+    }
   };
 
-  const handleFavoriteClick = () => {
-    setIsFavorite(!isFavorite);
-  };
+  // 🔹 Numéro WhatsApp du vendeur (SANS espace ni caractère spécial)
+  const phoneNumber = "212612469287";
 
-  const handleNextImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-  };
+  // 🔹 Génération du message personnalisé
+  const message = encodeURIComponent(
+    `👋 Bonjour, je suis intéressé par ce produit :\n\n` +
+    `🔹 *Nom* : ${product.name}\n` +
+    `🔹 *Marque* : ${product.mark}\n` +
+    `🔗 *Image* : ${BASE_URL.replace('/api','')+product.images[0].imageName} \n\n` +
+    `Pouvez-vous me donner plus d'informations ? Merci !`
+  );
 
-  const handlePrevImage = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  };
+  // 🔹 URL finale WhatsApp
+  const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
 
   return (
-    <>
-      <div
-        
-        className="relative w-full sm:h-[60vh] h-[50vh] bg-white border rounded-md shadow hover:shadow-2xl hover:scale-200 cursor-pointer overflow-hidden transition-all duration-300"
+      <div key={product.id}
+        className="relative w-full sm:h-[60vh] h-[55vh] bg-white dark:bg-gray-800 border dark:border-black rounded-md shadow hover:shadow-2xl hover:scale-200 cursor-pointer overflow-hidden transition-all duration-300"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-      
-        <img src={img} alt={name} className="w-full h-[65%] object-cover" />
-        <div className="p-4">
-          <p className="text-gray-500 text-sm">{category}</p>
-          <div className="flex text-yellow-400 text-sm my-1">
-            
-          </div>
-          <h3 className="text-black-600 font-semibold">{name}</h3>
+        <div className={`relative w-full h-[60%] transition-all duration-300 ease-in-out ${isHovered? 'h-[60%]': ' h-[70%]' }`}>
+          <img src={BASE_URL.replace('/api','')+product.images[0].imageName} alt={product.name} className="mx-auto h-full object-cover object-center" />
+          {
+            product.promo?
+            <img className="w-[25px] h-[25px] absolute top-2 right-2 z-10  " src={promo} alt="" />
+            :
+            ''
+          }
+        </div>
+        <div className={`space-y-1 p-2 ${isHovered? 'mt-2': 'mt-10'}`}>
+          <p className="text-gray-500 dark:text-white text-sm">{product.mark}</p>
+          <h3 className="text-black-600 font-semibold">{product.name}</h3>
         </div>
 
         <div
-          className={`absolute bottom-0 left-0 w-full flex items-center justify-between p-3 bg-white border-t transition-all duration-300 ${
+          className={`absolute bottom-0 left-0 w-full flex items-center  justify-between p-3 bg-white border-t dark:border-black transition-all duration-300 dark:bg-gray-800 ${
             isHovered ? "opacity-100 scale-y-100 translate-y-0" : "opacity-0 scale-y-0 translate-y-10"
           }`}
         >
-          <button className="flex-1 bg-cyan-500 text-white py-2 rounded-lg font-semibold hover:bg-cyan-200">
-            Order Now
+          <button className="flex-1 bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-gradient-to-r hover:from-blue-600 hover:to-purple-600">
+            <a 
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Commander
+            </a>
           </button>
-          <button className="p-2 bg-gray-200 rounded-full ml-2" onClick={handleViewDetails}>
-            <BsEye className="text-gray-600 transition-all duration-200 ease-in-out hover:text-black-300 hover:scale-110" />
+          <button 
+            className="p-2 bg-gray-200 rounded-full ml-2" 
+            onClick={() => {
+              setProductId(product.id);
+              sessionStorage.setItem('productId',product.id);
+              }} >
+            <Link to={`/detail-products/${product.id}`}>
+              <BsEye className="text-gray-600 hover:text-blue-600 hover:font-blod transition-all duration-200 ease-in-out hover:text-black-300 hover:scale-110" />
+            </Link>
           </button>
-          <button className="p-2 bg-gray-200 rounded-full ml-2" onClick={handleFavoriteClick}>
-            {isFavorite ? (
-              <FaHeart className="text-cyan-500 transition-all duration-200 ease-in-out hover:scale-110" />
-            ) : (
-              <FaRegHeart className="text-gray-600 transition-all duration-200 ease-in-out hover:text-black-300 hover:scale-110" />
-            )}
+          <button 
+            className="p-2 bg-gray-200 rounded-full ml-2"
+            onClick={() => handleFavories(product.id)}
+          >
+            {
+              loading?
+              <div className="w-full flex items-center justify-center">
+                <div className="flex items-center justify-center space-x-1">
+                    <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                    <div className="w-2 h-2 rounded-full animate-pulse bg-blue-600"></div>
+                </div>
+              </div>
+              :
+              isFavorite ? (
+                <FaHeart className="text-cyan-500 transition-all duration-200 ease-in-out hover:scale-110" />
+              ) : (
+                <FaRegHeart className="text-gray-600 transition-all duration-200 ease-in-out hover:text-black-300 hover:scale-110" />
+              )
+
+            }
           </button>
         </div>
       </div>
-
-      {showPopup && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-          <div className="bg-white p-6 rounded-lg shadow-lg w-11/12 max-w-3xl relative">
-            <button className="absolute top-3 right-3 text-gray-600 hover:text-black" onClick={() => setShowPopup(false)}>
-              <AiOutlineClose size={24} />
-            </button>
-            <div className="flex flex-col md:flex-row gap-6">
-              <div className="w-full md:w-1/2 relative">
-                <img src={images[currentImageIndex]} alt={name} className="w-full h-64 object-cover rounded-md" />
-                <div className="absolute top-1/2 left-0 right-0 flex justify-between px-4">
-                  <button
-                    className="bg-white p-2 rounded-full shadow-md"
-                    onClick={handlePrevImage}
-                  >
-                    ‹
-                  </button>
-                  <button
-                    className="bg-white p-2 rounded-full shadow-md"
-                    onClick={handleNextImage}
-                  >
-                    ›
-                  </button>
-                </div>
-              </div>
-              <div className="w-full md:w-1/2">
-                <h2 className="text-xl font-semibold mt-4">{name}</h2>
-                <p className="text-gray-500 text-sm">{category}</p>
-                <p className="mt-2 text-gray-700">{descriptions}</p>
-                <ul className="mt-2 text-gray-700">
-                  {caracteristiques.map((caracteristique, index) => (
-                    <li key={index}>{caracteristique}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
   );
 };
 
-ProductCard.propTypes = {
-  img: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  category: PropTypes.string.isRequired,
-  index: PropTypes.number,
-  descriptions: PropTypes.string.isRequired,
-  caracteristiques: PropTypes.arrayOf(PropTypes.string).isRequired,
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
-};
+// ProductCard.propTypes = {
+//   img: PropTypes.string.isRequired,
+//   name: PropTypes.string.isRequired,
+//   category: PropTypes.string.isRequired,
+//   index: PropTypes.number,
+//   descriptions: PropTypes.string.isRequired,
+//   caracteristiques: PropTypes.arrayOf(PropTypes.string).isRequired,
+//   images: PropTypes.arrayOf(PropTypes.string).isRequired,
+// };
 
 export default ProductCard;

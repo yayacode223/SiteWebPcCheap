@@ -4,6 +4,8 @@ import TodoApp from '../../components/TodoApp';
 import { useCategory } from '../../../context/CategoryContext';
 import { useProduct } from '../../../context/ProductContext';
 import { useNavigate } from 'react-router';
+import { toast } from 'react-toastify';
+
 
 export default function AddProduct() {
 
@@ -36,17 +38,17 @@ export default function AddProduct() {
     e.preventDefault();
 
     if(product.category === ''){
-      alert('veuillez choisir une categorie')
+      toast.info('veuillez choisir une categorie')
     }
     else{
       try{
         addProduct(product)
-        console.log("Ajout de produit reussi");
+        toast.success("Ajout de produit reussi");
         navigate('/admin/liste-produits')
 
       } 
       catch(error){
-        alert("erreur d'ajout de produit: "+error)
+        toast.error("erreur d'ajout de produit: "+error)
       }
       
     }
@@ -69,18 +71,18 @@ export default function AddProduct() {
 
       <div className='flex justify-between'>
           <div className='flex flex-col space-y-0'>
-            <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Ajouter <span className='text-black'>Produits</span></h2>
+            <h2 className='text-[#4F75FF] font-bold text-[1.5rem] '>Ajouter <span className='text-black dark:text-gray-100'>Produits</span></h2>
             <p className='text-sm font-base text-[#4F75FF]'>PANNEAU D'ADMINISTRATION</p>
           </div>
-          <h4 className='flex items-center justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/ Produits</h4>
+          <h4 className='flex items-center dark:text-gray-100 justify-center text-sm font-base'><MdLaptopChromebook className='text-[20px] mr-4' />/ Produits</h4>
                     
       </div>
       
-      <div className='sm:w-full rounded-md bg-slate-100  mt-[50px]  flex flex-col-reverse sm:flex-row'>
+      <div className='sm:w-full rounded-md bg-slate-100 dark:bg-slate-950  mt-[50px]  flex flex-col-reverse sm:flex-row'>
         <form onSubmit={handleSubmit} className='sm:w-full text-[1rem] p-4 h-auto' action="">
             <div className='w-full h-auto space-y-4 mb-4'>
-                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})}  required/>
-                <input className='block w-full rounded-md px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value})} required />
+                <input className='block w-full rounded-md dark:bg-gray-800 dark:text-gray-100 px-4 py-2 mb-4 outline-none border-none focus:border focus:border-[#4F75FF] border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#acbcf8]' type="text" name='name' placeholder='nom du produit' value={product.name} onChange={(e) => setProduct({...product, name: e.target.value})}  required/>
+                <input className='block w-full rounded-md dark:bg-gray-800 dark:text-gray-100 px-4 py-2 mb-4 outline-none focus:border focus:border-[#4F75FF] border-none border-[1.5px] text-[1rem] focus:shadow-lg shadow-[#91a7f4]' type="text" name='mark'  placeholder='La marque du produit' value={product.mark} onChange={(e) => setProduct({...product, mark: e.target.value})} required />
 
                 <select id="countries" className="bg-white border-none border-gray-300 focus:shadow-lg text-gray-500 text-md rounded-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value={product.category} onChange={(e) => setProduct({...product, category: e.target.value})} >
                   <option value={''} selected>Choisir la catégorie</option>
@@ -98,7 +100,7 @@ export default function AddProduct() {
 
                 <div className='flex gap-4 w-full justify-between  py-2'>
                   <div className="flex items-center w-1/2">
-                    <input id="stock" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={product.stock} value={product.stock} onChange={() => setProduct({...product, stock: !product.stock})} />
+                    <input id="stock" type="checkbox" className="w-4 h-4 text-blue-600  dark:text-gray-100 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" checked={product.stock} value={product.stock} onChange={() => setProduct({...product, stock: !product.stock})} />
                     <label htmlFor="stock" className="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">En stock</label>
                   </div>
 
@@ -109,7 +111,7 @@ export default function AddProduct() {
 
                 </div>
 
-                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF]  mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value})}></textarea>
+                <textarea className='block w-full h-[200px] p-2 outline-none border-none focus:border focus-border-[1.5px] dark:bg-gray-800 dark:text-gray-100 border-[#4F75FF] rounded-md focus:shadow-lg shadow-[#4F75FF] mb-4' name="description" id="description" value={product.description} onChange={(e) => setProduct({...product, description: e.target.value})}></textarea>
 
                 
               
@@ -121,7 +123,7 @@ export default function AddProduct() {
                 
             </div>
 
-            <button type='submit' className='bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-lg shadow-blue-200 block w-full text-white font-bold rounded-md p-2 '>Enregistrer</button>
+            <button type='submit' className='bg-blue-500 duration-300 ease-in-out hover:bg-blue-800 text-[1rem] shadow-lg dark:shadow-slate-950 shadow-blue-200 block w-full text-white font-bold rounded-md p-2 '>Enregistrer</button>
         </form>
 
         <div className='sm:w-full h-[100%] p-4' >

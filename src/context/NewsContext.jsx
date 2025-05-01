@@ -47,8 +47,8 @@ export const NewsProvider = ({ children }) => {
     const addNews = async (news) => {
         try {
             setLoading(true)
-            const newNews = await NewsService.add(news);
-            setNews([...news, newNews]); // Mise à jour locale
+            await NewsService.add(news);
+            fetchNews();
         } catch (error) {
             console.error("Erreur lors de l'ajout du produit :", error);
         }
@@ -58,8 +58,8 @@ export const NewsProvider = ({ children }) => {
     const updateNews = async (id, updatedNews) => {
         try {
             setLoading(true)
-            const updated = await NewsService.update(id, updatedNews);
-            setNews(news.map((p) => (p.id === id ? updated : p))); // Mise à jour locale
+            await NewsService.update(id, updatedNews);
+            fetchNews();
         } catch (error) {
             console.error("Erreur lors de la mise à jour :", error);
         }
@@ -70,7 +70,7 @@ export const NewsProvider = ({ children }) => {
         try {
             setLoading(true)
             await NewsService.delete(id);
-            setNews(news.filter((p) => p.id !== id)); // Mise à jour locale
+            fetchNews();
         } catch (error) {
             console.error("Erreur lors de la suppression :", error);
         }
